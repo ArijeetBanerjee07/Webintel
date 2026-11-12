@@ -77,3 +77,4 @@ Now repeat the steps for the `staging` branch:
 2. Scroll to the **Pull Requests** section:
    - ✅ **Allow squash merging** (recommended: keeps main/staging git history clean and atomic).
    - ✅ **Automatically delete head branches** (cleans up remote `feature/*` branches automatically when merged).
+
