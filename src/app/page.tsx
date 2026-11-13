@@ -1,3 +1,5 @@
+import HelpPage from "./help/HelpPage";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
