@@ -9,13 +9,13 @@ interface FaqAccordionProps {
 }
 
 export function FaqAccordion({ items, searchQuery }: FaqAccordionProps) {
-  const [openIndices, setOpenIndices] = useState<number[]>([0, 1]);
+  const [openIndices, setOpenIndices] = useState<number[]>([0, 1])
 
   const toggleItem = (idx: number) => {
     setOpenIndices((prev) =>
       prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx]
-    );
-  };
+    )
+  }
 
   return (
     <section aria-labelledby="faq-heading" className="mx-auto max-w-4xl">
@@ -64,13 +64,13 @@ export function FaqAccordion({ items, searchQuery }: FaqAccordionProps) {
                   </div>
                 )}
               </div>
-            );
+            )
           })}
         </div>
       ) : (
-        <div className="mt-6 rounded-xl border border-zinc-800 bg-[#0B120F] p-8 text-center text-sm text-zinc-400">
-          No FAQ answers matched &ldquo;{searchQuery}&rdquo;.
-        </div>
+       <div className="mt-6 rounded-xl border border-zinc-800 bg-[#0B120F] p-8 text-center text-sm text-zinc-400">
+  {`No FAQ answers matched "${searchQuery}".`}
+</div>
       )}
     </section>
   );

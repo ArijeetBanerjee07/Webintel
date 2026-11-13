@@ -19,19 +19,19 @@ export default function HelpPage() {
     (mod) =>
       mod.title.toLowerCase().includes(query) ||
       mod.description.toLowerCase().includes(query)
-  );
+  )
 
   const filteredFaqs = FAQ_ITEMS.filter(
     (faq) =>
       faq.question.toLowerCase().includes(query) ||
       faq.answer.toLowerCase().includes(query) ||
       faq.tag.toLowerCase().includes(query)
-  );
+  )
 
   return (
     <main className="min-h-screen bg-[#080C0A] text-zinc-100 selection:bg-[#10B981]/30 selection:text-[#10B981]">
-      {/* Hero & Search Section */}
       <section className="bg-gradient-to-b from-[#0D1A14] via-[#09100D] to-[#080C0A] px-6 pb-12 pt-16">
+        
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-[#10B981]/30 bg-[#10B981]/10 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-widest text-[#10B981]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#10B981]" />
@@ -46,7 +46,6 @@ export default function HelpPage() {
             specifications for WebIntel.
           </p>
 
-          {/* Search Bar */}
           <div className="mx-auto mt-7 max-w-xl">
             <div className="relative">
               <input
@@ -72,7 +71,6 @@ export default function HelpPage() {
               )}
             </div>
 
-            {/* Quick Searches Pills */}
             <div className="mt-3.5 flex flex-wrap items-center justify-center gap-2 text-xs">
               <span className="text-zinc-500">Quick searches:</span>
               {QUICK_SEARCH_TAGS.map((tag) => (
@@ -100,5 +98,5 @@ export default function HelpPage() {
         <SupportAssistanceBox />
       </div>
     </main>
-  );
+  )
 }

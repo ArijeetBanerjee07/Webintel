@@ -287,12 +287,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     answer:
       "Navigate to the Add Domain view from your console navigation bar. Input the root URL (e.g., https://example.com), calibrate your crawl depth thresholds (up to 2,500 subpages on Enterprise tiers), specify custom user-agent rotation policies, and click Initiate Pipeline. Initial telemetry indices typically populate in under 45 seconds.",
   },
-  {
-    tag: "White-labeling",
-    question: "Can I white-label reports?",
-    answer:
-      "Yes. Enterprise workspaces include complete white-label reporting suites. You can attach custom CNAME domains (e.g., audit.yourcompany.com), inject brand SVG logos, configure automated CSS color tokens for PDF exports, and establish custom SMTP relays for outbound executive intelligence delivery.",
-  },
+
   {
     tag: "Health Score",
     question: "Understanding Health Scores",
@@ -311,4 +306,4 @@ export const FAQ_ITEMS: FaqItem[] = [
     answer:
       "Traffic and technology adoption estimates combine live DNS/HTTP header fingerprinting, public edge telemetry, and historical benchmark models. Differential change alerts reflect exact DOM and header snapshots captured during your scheduled crawl intervals.",
   },
-];
+]

@@ -66,5 +66,5 @@ export function WorkflowPipeline() {
         ))}
       </div>
     </section>
-  );
+  )
 }

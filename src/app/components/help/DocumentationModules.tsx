@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import {
   Rocket,
@@ -8,6 +6,8 @@ import {
   Users,
   Search,
   Bell,
+  ArrowRight,
+  
 } from "lucide-react";
 import { DocArticle, DocModule } from "./helpData";
 
@@ -83,7 +83,6 @@ export function DocumentationModules({
                 </div>
 
                 <div className="mt-6 border-t border-zinc-800/80 pt-3.5 text-xs">
-                  {/* Related Articles Toggle */}
                   <button
                     type="button"
                     onClick={() => toggleArticles(mod.id)}
@@ -132,8 +131,8 @@ export function DocumentationModules({
                     className="mt-2.5 flex w-full items-center justify-between font-medium text-[#10B981] transition hover:text-[#34D399]"
                   >
                     <span>View Guide</span>
-                    <span>&rarr;</span>
-                  </button>
+
+<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />                  </button>
                 </div>
               </div>
             );
@@ -244,5 +243,5 @@ export function DocumentationModules({
         </div>
       )}
     </section>
-  );
+  )
 }
