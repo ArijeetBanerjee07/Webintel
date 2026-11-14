@@ -1,4 +1,3 @@
-
 import React from "react";
 import Link from "next/link";
 import {
@@ -25,7 +24,6 @@ export function SupportAssistanceBox() {
       <div className="pointer-events-none absolute bottom-0 left-1/3 -z-10 h-32 w-64 rounded-full bg-teal-500/[0.04] blur-[70px]" />
 
       <div className="grid gap-8 md:grid-cols-3 md:items-center">
-
         <div>
           <div className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-emerald-500/20 bg-emerald-500/10 text-emerald-400">
@@ -41,7 +39,6 @@ export function SupportAssistanceBox() {
           </h3>
 
           <div className="mt-4 space-y-3.5">
-
             <a
               href="tel:+91356777"
               className="group/contact flex items-center gap-3 text-xs text-zinc-400 transition hover:text-emerald-400"
@@ -81,7 +78,7 @@ export function SupportAssistanceBox() {
         <div className="relative border-y border-white/[0.07] py-7 md:border-x md:border-y-0 md:px-8 md:py-3">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/[0.07] px-2.5 py-1 text-[9px] font-semibold uppercase tracking-wider text-emerald-400">
             <Activity className="h-3 w-3" />
-            We're here to help
+            We&apos;re here to help
           </span>
 
           <h2
@@ -92,7 +89,7 @@ export function SupportAssistanceBox() {
           </h2>
 
           <p className="mt-2 text-xs leading-6 text-zinc-400">
-            Can't find the answer you're looking for? Our solutions
+            Can&apos;t find the answer you&apos;re looking for? Our solutions
             engineers are ready to help with technical questions,
             custom integrations, and enterprise requirements.
           </p>
@@ -123,7 +120,6 @@ export function SupportAssistanceBox() {
           </p>
 
           <ul className="mt-4 space-y-3">
-
             <li>
               <a
                 href="#support-hub"
