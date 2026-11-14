@@ -1,0 +1,10 @@
+{
+  "routes": [
+    { "path": "/", "title": "Webintel — Website Intelligence" },
+    { "path": "/about", "title": "About — Webintel" },
+    { "path": "/services", "title": "Services — Webintel" },
+    { "path": "/pricing", "title": "Pricing — Webintel" },
+    { "path": "/blog", "title": "Research — Webintel" },
+    { "path": "/contact", "title": "Contact — Webintel" }
+  ]
+}
