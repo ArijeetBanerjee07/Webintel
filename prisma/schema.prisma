@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Website {
+  id            String        @id @default(cuid())
+  domain        String        @unique
+  canonicalUrl  String
+  industry      String?
+  countrySignal String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  scans         Scan[]
+  pages         Page[]
+  technologies  Technology[]
+  opportunities Opportunity[]
+
+  @@index([domain])
+}
+
+model Scan {
+  id               String    @id @default(cuid())
+  websiteId        String
+  website          Website   @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  status           String    @default("COMPLETED")
+  overallScore     Int       @default(0)
+  seoScore         Int       @default(0)
+  technicalScore   Int       @default(0)
+  contentScore     Int       @default(0)
+  performanceScore Int       @default(0)
+  mobileScore      Int       @default(0)
+  crawlConfig      String?
+  startedAt        DateTime  @default(now())
+  completedAt      DateTime?
+
+  findings         Finding[]
+
+  @@index([websiteId])
+}
+
+model Page {
+  id          String   @id @default(cuid())
+  websiteId   String
+  website     Website  @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  url         String
+  statusCode  Int      @default(200)
+  title       String?
+  description String?
+  h1          String?
+  canonical   String?
+  wordCount   Int      @default(0)
+  lastSeen    DateTime @default(now())
+
+  @@index([websiteId])
+}
+
+model Technology {
+  id         String   @id @default(cuid())
+  websiteId  String
+  website    Website  @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  name       String
+  category   String
+  confidence String   @default("HIGH")
+  evidence   String?
+  firstSeen  DateTime @default(now())
+  lastSeen   DateTime @default(now())
+
+  @@unique([websiteId, name])
+  @@index([websiteId])
+}
+
+model Finding {
+  id             String  @id @default(cuid())
+  scanId         String
+  scan           Scan    @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  category       String
+  severity       String
+  issue          String
+  evidence       String?
+  recommendation String?
+
+  @@index([scanId])
+}
+
+model Opportunity {
+  id          String   @id @default(cuid())
+  websiteId   String
+  website     Website  @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  type        String
+  reason      String
+  impact      String
+  confidence  String   @default("HIGH")
+  leadStatus  String   @default("NEW")
+  createdAt   DateTime @default(now())
+
+  @@index([websiteId])
+}

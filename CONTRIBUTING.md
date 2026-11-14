@@ -89,9 +89,9 @@ git push -u origin feature/user-authentication
 
 ---
 
-### Step 5: Code Review & Approval
-- The repo owner / lead inspects the code diff.
-- Once approved and all CI checks are green, merge the PR into `staging` (Squash & Merge recommended).
+### Step 5: Code Review & Approval (Mandatory Owner Review)
+- Pull requests **cannot be merged without explicit review and approval from `@ArijeetBanerjee07`** (enforced via `.github/CODEOWNERS` and GitHub branch protection).
+- Once the code owner approves and all CI checks are green, the PR can be merged into `staging` (Squash & Merge recommended).
 - Delete the remote feature branch upon successful merge.
 
 ---
