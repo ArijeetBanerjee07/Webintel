@@ -2,7 +2,13 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-
+import {
+  Search,
+  X,
+  BookOpen,
+  ArrowRight,
+  SearchX,
+} from "lucide-react";
 import {
   CORE_MODULES,
   FAQ_ITEMS,
@@ -14,7 +20,6 @@ import { WorkflowPipeline } from "../components/help/WorkflowPipeline";
 import { DocumentationModules } from "../components/help/DocumentationModules";
 import { FaqAccordion } from "../components/help/FaqAccordion";
 import { SupportAssistanceBox } from "../components/help/SupportAssistanceBox";
-
 export default function HelpPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -50,7 +55,7 @@ export default function HelpPage() {
       faq.question.toLowerCase().includes(query) ||
       faq.answer.toLowerCase().includes(query) ||
       faq.tag.toLowerCase().includes(query)
-  )
+  );
 
   const filteredWorkflows = WORKFLOW_STEPS.filter(
     (step) =>
@@ -58,7 +63,7 @@ export default function HelpPage() {
       step.description.toLowerCase().includes(query) ||
       step.step.toLowerCase().includes(query) ||
       step.icon.toLowerCase().includes(query)
-  )
+  );
 
   const hasResults =
     filteredModules.length > 0 ||
@@ -72,7 +77,7 @@ export default function HelpPage() {
         <div className="mx-auto max-w-3xl text-center">
 
           <span className="inline-flex items-center gap-2 rounded-full border border-[#10B981]/30 bg-[#10B981]/10 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-widest text-[#10B981]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#10B981]" />
+            <BookOpen className="h-3.5 w-3.5" />
             Knowledge Base &amp; Guides
           </span>
 
@@ -88,26 +93,29 @@ export default function HelpPage() {
           <div className="mx-auto mt-7 max-w-xl">
             <div className="relative">
 
+              <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search articles, guides, FAQs..."
                 aria-label="Search articles, guides, FAQs"
-                className="w-full rounded-xl border border-zinc-800 bg-[#0B120F] py-3 pl-4 pr-16 text-sm text-zinc-100 placeholder-zinc-500 outline-none transition focus:border-[#10B981] focus:ring-2 focus:ring-[#10B981]/20"
+                className="w-full rounded-xl border border-zinc-800 bg-[#0B120F] py-3 pl-10 pr-20 text-sm text-zinc-100 placeholder-zinc-500 outline-none transition focus:border-[#10B981] focus:ring-2 focus:ring-[#10B981]/20"
               />
 
               {searchQuery ? (
                 <button
                   type="button"
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded px-2 py-0.5 text-xs text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                  className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-0.5 text-xs text-zinc-400 hover:bg-zinc-800 hover:text-white"
                 >
+                  <X className="h-3.5 w-3.5" />
                   Clear
                 </button>
               ) : (
                 <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded border border-zinc-800 bg-[#080C0A] px-2 py-0.5 text-[11px] text-zinc-500">
-                  &#8984;
+                  &#8984;K
                 </span>
               )}
 
@@ -149,12 +157,16 @@ export default function HelpPage() {
         {query && !hasResults ? (
           <div className="rounded-xl border border-zinc-800 bg-[#0B120F] p-10 text-center">
 
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-zinc-800 bg-[#080C0A] text-zinc-400">
+              <SearchX className="h-5 w-5" />
+            </div>
+
             <h2 className="text-xl font-semibold text-white">
               No results found
             </h2>
 
             <p className="mt-2 text-sm text-zinc-400">
-              We couldn't find anything matching "{searchQuery}".
+              We couldn&apos;t find anything matching &quot;{searchQuery}&quot;.
               Try another keyword.
             </p>
 
@@ -191,7 +203,7 @@ export default function HelpPage() {
                     <Link
                       key={step.step}
                       href={`/help/workflows/${Number(step.step)}`}
-                      className="rounded-xl border border-zinc-800 bg-[#0B120F] p-5 transition hover:border-[#10B981]/50"
+                      className="group rounded-xl border border-zinc-800 bg-[#0B120F] p-5 transition hover:border-[#10B981]/50"
                     >
 
                       <span className="text-xs font-semibold text-[#10B981]">
@@ -206,8 +218,9 @@ export default function HelpPage() {
                         {step.description}
                       </p>
 
-                      <span className="mt-4 inline-block text-xs font-medium text-[#10B981]">
-                        View workflow →
+                      <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-[#10B981]">
+                        View workflow
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                       </span>
 
                     </Link>

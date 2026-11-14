@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -102,5 +103,5 @@ async function WorkflowContent({ params }: Props) {
         </div>
       </div>
     </main>
-  )
+  );
 }
