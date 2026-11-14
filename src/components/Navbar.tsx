@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Brand } from "@/components/Brand";
 import { Icon } from "@/components/Icon";
 import { useAuth } from "@/context/AuthContext";
@@ -15,8 +16,13 @@ const navLinks = [
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { openAuth } = useAuth();
+
+  if (pathname?.startsWith("/dashboard")) {
+    return null;
+  }
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#040806]/80 backdrop-blur-xl transition-all">

@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Brand } from "@/components/Brand";
 import { Icon } from "@/components/Icon";
 
@@ -13,6 +16,11 @@ const footerLinks = [
 ];
 
 export function Footer() {
+  const pathname = usePathname();
+
+  if (pathname?.startsWith("/dashboard")) {
+    return null;
+  }
   return (
     <footer className="border-t border-white/[0.08] bg-[#040705]">
       <div className="shell grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr] md:py-16">
