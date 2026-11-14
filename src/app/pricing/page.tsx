@@ -3,18 +3,181 @@ import { Icon } from "@/components/Icon";
 import { RouteHero } from "@/components/RouteHero";
 
 const plans = [
-  { name: "Starter", price: "$0", cadence: "for one public domain", description: "A focused read on the surface you need to understand first.", features: ["1 domain profile", "Weekly change scan", "Core risk checks", "Signal summary email"], action: "Start a scan", highlighted: false },
-  { name: "Pro Intelligence", price: "$249", cadence: "per month / up to 25 domains", description: "The always-on intelligence layer for product, security, and ops teams.", features: ["25 domain profiles", "Daily change intelligence", "Application insights", "Risk & compliance workbench", "Reliability center", "Slack + webhook routing"], action: "Request Pro access", highlighted: true },
-  { name: "Enterprise", price: "Let’s talk", cadence: "for complex public surfaces", description: "A tailored intelligence program for the surfaces your business cannot afford to miss.", features: ["Unlimited domain portfolio", "Custom scan cadence", "Incident & release tracking", "Evidence exports", "Dedicated intelligence lead", "SSO and team controls"], action: "Talk to an expert", highlighted: false }
+  {
+    name: "Starter",
+    price: "$0",
+    cadence: "forever free",
+    description: "Instant surface visibility and baseline health checks for individual websites and side projects.",
+    features: [
+      "1 public domain profile",
+      "Weekly automated surface scans",
+      "Core SSL certificate & expiry tracking",
+      "Baseline HTTP security header audits",
+      "Technology & framework detection",
+      "Standard community support",
+    ],
+    action: "Get Started Free",
+    highlighted: false,
+    href: "/contact",
+  },
+  {
+    name: "Pro Intelligence",
+    price: "$249",
+    cadence: "per month / billed annually",
+    description: "The continuous surface operating layer built for engineering, DevOps, and security teams.",
+    features: [
+      "Up to 25 monitored domain profiles",
+      "Daily automated change & release crawling",
+      "DOM & visual regression diff engine",
+      "Detailed security headers & CSP validator",
+      "Automated tech debt & opportunity flags",
+      "Slack & Discord webhook notifications",
+      "Exportable PDF & JSON audit reports",
+      "Priority email & technical chat support",
+    ],
+    action: "Get Started with Pro",
+    highlighted: true,
+    href: "/contact",
+  },
+  {
+    name: "Enterprise Fleet",
+    price: "Custom",
+    cadence: "tailored program",
+    description: "Comprehensive perimeter monitoring, dedicated infrastructure probes, and SLA guarantees.",
+    features: [
+      "Unlimited domain & subdomain portfolios",
+      "Custom hourly crawl schedules & rate limits",
+      "Dedicated egress IP proxy clusters",
+      "Full REST API access & raw telemetry firehose",
+      "Custom SIEM & webhook ingestion endpoints",
+      "SSO, SAML & role-based team permissions",
+      "SOC2 Type II documentation & security audits",
+      "Dedicated technical account engineer & SLA",
+    ],
+    action: "Talk to Enterprise Desk",
+    highlighted: false,
+    href: "/contact",
+  },
 ];
 
 const faqs = [
-  ["What counts as a domain?", "A domain profile can include the root domain, public subdomains, and the linked customer-facing surfaces you choose to monitor."],
-  ["Do you need our credentials?", "No. Webintel is built around public signals and can start with a URL. Private application access can be discussed for enterprise programs."],
-  ["Can we change plans later?", "Yes. Start with a single surface, then expand into portfolio monitoring as your intelligence needs mature."],
-  ["How long does a first scan take?", "Most public surfaces receive a useful first profile in under five minutes. Larger portfolios and custom programs receive a tailored schedule."]
+  [
+    "What defines a monitored domain?",
+    "A single domain profile encompasses the apex domain and its associated publicly discoverable subdomains (e.g. app.domain.com, docs.domain.com) within our standard crawl depth limits.",
+  ],
+  [
+    "Does WebIntel require any credentials or private code access?",
+    "No. WebIntel operates strictly on external, publicly accessible network signals, DNS records, HTTP responses, and client-side DOM assets. Zero credentials or repository permissions required.",
+  ],
+  [
+    "How quickly does an initial scan complete?",
+    "A standard domain audit completes in under 60 seconds, during which our nodes perform DNS resolution, TLS handshake evaluation, header inspection, and DOM framework matching.",
+  ],
+  [
+    "Can we integrate WebIntel alerts into our existing engineering workflow?",
+    "Yes. Pro and Enterprise tiers include configurable webhooks that dispatch JSON payloads directly to Slack, Discord, PagerDuty, or internal security automation webhooks.",
+  ],
 ];
 
 export default function PricingPage() {
-  return <><RouteHero eyebrow="Clear signal, clear scope" title="Start with one surface. Scale with confidence." body="Simple access for a first scan, a focused intelligence layer for growing teams, and a tailored program for complex public portfolios." /><section className="shell py-20 sm:py-28"><div className="grid gap-4 lg:grid-cols-3">{plans.map((plan) => <article key={plan.name} className={`relative flex flex-col rounded-2xl border p-7 sm:p-8 ${plan.highlighted ? "border-emerald-400/70 bg-emerald-950/35 shadow-glow-strong" : "border-emerald-950/80 bg-[#08140D]/80"}`}>{plan.highlighted && <span className="absolute -top-3 left-7 rounded-full bg-emerald-400 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[#031008]">Most operational</span>}<p className="eyebrow">{plan.name}</p><p className="mt-7 text-4xl font-semibold tracking-tight text-white">{plan.price}</p><p className="mt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-600">{plan.cadence}</p><p className="mt-6 min-h-[72px] text-sm leading-6 text-zinc-400">{plan.description}</p><div className="my-7 h-px bg-emerald-950/80" /><ul className="flex-1 space-y-3">{plan.features.map((feature) => <li key={feature} className="flex items-start gap-2 text-sm text-zinc-300"><Icon name="check" width={16} height={16} className="mt-0.5 shrink-0 text-emerald-400" />{feature}</li>)}</ul><Link href="/contact" className={plan.highlighted ? "button-primary mt-9" : "button-secondary mt-9"}>{plan.action}<Icon name="arrow-up-right" width={15} height={15} /></Link></article>)}</div></section><section className="border-y border-emerald-950/60 bg-[#050c08]/70"><div className="shell grid gap-14 py-20 lg:grid-cols-[0.75fr_1.25fr] lg:py-28"><div><p className="eyebrow">Common questions</p><h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">The useful details.</h2></div><div className="divide-y divide-emerald-950/80">{faqs.map(([question, answer]) => <details key={question} className="group py-5"><summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-base font-medium text-white"><span>{question}</span><span className="flex h-6 w-6 items-center justify-center rounded-full border border-emerald-900/80 text-emerald-300 transition group-open:rotate-45"><Icon name="plus" width={14} height={14} /></span></summary><p className="muted-copy mt-4 max-w-2xl">{answer}</p></details>)}</div></div></section></>;
+  return (
+    <>
+      <RouteHero
+        eyebrow="Predictable & Transparent"
+        title="Start Free. Scale with Your Domain Estate."
+        body="Whether you are monitoring a single product surface or an enterprise portfolio across hundreds of subdomains, WebIntel provides clear, tiered pricing."
+      />
+
+      {/* 3 Tier Cards */}
+      <section className="shell py-20 sm:py-28">
+        <div className="grid gap-6 lg:grid-cols-3">
+          {plans.map((plan) => (
+            <article
+              key={plan.name}
+              className={`relative flex flex-col justify-between rounded-xl border p-7 sm:p-8 ${
+                plan.highlighted
+                  ? "border-emerald-500/50 bg-[#09130d] shadow-[0_0_35px_-5px_rgba(16,185,129,0.3)]"
+                  : "border-white/[0.08] bg-[#070b09]"
+              }`}
+            >
+              {plan.highlighted && (
+                <span className="absolute -top-3 left-7 rounded-full bg-emerald-500 px-3 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#030805]">
+                  Most Popular
+                </span>
+              )}
+
+              <div>
+                <p className="font-mono text-xs font-semibold uppercase tracking-wider text-emerald-400">
+                  {plan.name}
+                </p>
+
+                <div className="mt-4 flex items-baseline gap-1">
+                  <span className="text-4xl font-bold tracking-tight text-white">{plan.price}</span>
+                  <span className="font-mono text-xs text-zinc-500">/{plan.cadence}</span>
+                </div>
+
+                <p className="mt-4 text-xs leading-relaxed text-zinc-400 min-h-[44px]">
+                  {plan.description}
+                </p>
+
+                <div className="my-6 h-px bg-white/[0.06]" />
+
+                <ul className="space-y-3 text-xs text-zinc-300">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2.5">
+                      <Icon name="check" width={14} height={14} className="text-emerald-400 shrink-0 mt-0.5" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <Link
+                href={plan.href}
+                className={plan.highlighted ? "button-primary mt-8 w-full justify-center text-xs" : "button-secondary mt-8 w-full justify-center text-xs"}
+              >
+                <span>{plan.action}</span>
+                <Icon name="arrow-up-right" width={13} height={13} />
+              </Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Frequently Asked Questions */}
+      <section className="border-t border-white/[0.08] bg-[#050806] py-20 sm:py-28">
+        <div className="shell grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <p className="eyebrow">Frequently Asked Questions</p>
+            <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+              Common Technical Questions
+            </h2>
+            <p className="mt-3 text-sm text-zinc-400">
+              Have a specific question not covered here? Reach out to our solutions team directly.
+            </p>
+            <Link href="/contact" className="button-secondary mt-6 text-xs">
+              <span>Contact Solutions Desk</span>
+              <Icon name="arrow-up-right" width={13} height={13} />
+            </Link>
+          </div>
+
+          <div className="divide-y divide-white/[0.08]">
+            {faqs.map(([question, answer]) => (
+              <details key={question} className="group py-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-white">
+                  <span>{question}</span>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full border border-white/[0.1] text-zinc-400 transition group-open:rotate-45">
+                    <Icon name="plus" width={12} height={12} />
+                  </span>
+                </summary>
+                <p className="mt-3 text-xs leading-relaxed text-zinc-400 max-w-xl">
+                  {answer}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }

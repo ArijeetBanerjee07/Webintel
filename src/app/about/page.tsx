@@ -1,18 +1,125 @@
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
 import { RouteHero } from "@/components/RouteHero";
-import { SectionHeading } from "@/components/SectionHeading";
 
-const principles = [
-  { icon: "globe" as const, title: "Public by default", body: "We work with the signals every team can verify: public pages, public assets, public headers, and public change." },
-  { icon: "layers" as const, title: "Context over volume", body: "A thousand observations are less useful than the five connected signals that explain what matters now." },
-  { icon: "terminal" as const, title: "Built for the handoff", body: "Every finding is shaped to move cleanly from intelligence to product, security, or operations ownership." }
+const pipelineSteps = [
+  {
+    step: "01",
+    title: "Distributed Edge Resolution",
+    body: "Our probing nodes query global DNS resolvers to map apex records, CNAME delegations, and SSL certificate chains without touching proprietary infrastructure.",
+  },
+  {
+    step: "02",
+    title: "Passive HTTP & Protocol Handshake",
+    body: "We inspect raw transport headers, protocol negotiations (HTTP/2 vs HTTP/3), security flags (HSTS, CSP, X-Frame-Options), and compression algorithms.",
+  },
+  {
+    step: "03",
+    title: "DOM Signature & Framework Classifier",
+    body: "Client-side headless parsers evaluate script tags, meta directives, global window objects, and CSS asset bundles to identify 500+ modern web technologies.",
+  },
+  {
+    step: "04",
+    title: "Multi-Vector Scoring & Opportunity Synthesis",
+    body: "Findings are normalized into a unified risk, compliance, and performance index, pinpointing actionable technical debt for engineering teams.",
+  },
 ];
 
-const milestones = ["First public-signal crawler deployed", "Application surface mapping introduced", "Risk and compliance lens shipped", "4.2× faster audit cycles for early teams"];
+const principles = [
+  {
+    icon: "globe" as const,
+    title: "100% Public Signals",
+    body: "We analyze exclusively what the public internet can inspect. No tokens, no repository access, and zero intrusive probes required.",
+  },
+  {
+    icon: "terminal" as const,
+    title: "Deterministic & Timestamped",
+    body: "Every scan produces immutable, cryptographic evidence with timestamped status codes and raw header readouts.",
+  },
+  {
+    icon: "shield" as const,
+    title: "Privacy & Zero Fingerprint",
+    body: "Our probes adhere to standard crawl etiquette, respect robots.txt limits, and introduce zero performance overhead to target origins.",
+  },
+];
 
 export default function AboutPage() {
-  return <><RouteHero eyebrow="The Webintel thesis" title="Translating public web signals into structured intelligence." body="The web is the largest continuously changing surface most teams already operate on. We make it legible—so product, security, and operations can move with the signal instead of after it." /><section className="shell grid gap-16 py-24 lg:grid-cols-[0.8fr_1.2fr] lg:py-32"><div><p className="eyebrow">A clearer operating layer</p><h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Less dashboard. More shared context.</h2></div><div className="space-y-6 text-base leading-8 text-zinc-400"><p>Most website monitoring stops at “something changed.” Webintel connects the change to the system, policy, release, or customer-facing surface behind it.</p><p>Our scanning engine creates a durable, timestamped intelligence profile for each domain. It learns the shape of a public surface, watches the edges, and writes the important parts back in language a human team can use.</p><Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 transition hover:text-emerald-200">See how the engine works <Icon name="arrow-up-right" width={15} height={15} /></Link></div></section><section className="border-y border-emerald-950/60 bg-[#050c08]/70"><div className="shell py-24 sm:py-28"><SectionHeading eyebrow="How we build" title="Engineering principles for an uncertain surface." body="Webintel is opinionated about the quality of the signal and quiet about everything else." /><div className="mt-12 grid gap-4 md:grid-cols-3">{principles.map((item) => <div key={item.title} className="panel p-6"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-400/10 text-emerald-300"><Icon name={item.icon} width={20} height={20} /></span><h3 className="mt-8 text-lg font-medium text-white">{item.title}</h3><p className="muted-copy mt-3">{item.body}</p></div>)}</div></div></section><section className="shell grid gap-16 py-24 lg:grid-cols-[1fr_0.8fr] lg:py-32"><div><p className="eyebrow">The scanning engine</p><h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Observe. Connect. Explain.</h2><div className="mt-10 space-y-7"><Step number="01" title="Observe the surface" body="Map pages, assets, headers, forms, dependencies, and release fingerprints without requiring credentials." /><Step number="02" title="Connect the signals" body="Group observations into systems, control areas, and customer-facing experiences that explain the shape of the domain." /><Step number="03" title="Explain the delta" body="Surface what changed, the likely impact, and the next best owner-facing action." /></div></div><div className="panel relative overflow-hidden p-7"><div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-emerald-400/10 blur-3xl" /><p className="eyebrow">Platform milestones</p><div className="mt-8 space-y-5">{milestones.map((milestone, index) => <div key={milestone} className="flex gap-4 border-b border-emerald-950/70 pb-5 last:border-0 last:pb-0"><span className="font-mono text-[10px] text-emerald-400/70">0{index + 1}</span><p className="text-sm leading-6 text-zinc-300">{milestone}</p></div>)}</div><div className="mt-10 rounded-lg border border-emerald-800/60 bg-emerald-950/20 p-4"><p className="font-mono text-[10px] uppercase tracking-[0.15em] text-emerald-400">Now indexing</p><p className="mt-2 text-sm text-white">The surface between change and consequence.</p></div></div></section><section className="shell pb-24 sm:pb-32"><div className="rounded-2xl border border-emerald-800/60 bg-emerald-950/25 p-8 sm:p-12"><p className="eyebrow">The team behind the signal</p><div className="mt-4 flex flex-col justify-between gap-8 md:flex-row md:items-end"><h2 className="max-w-xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">We build the screen we wanted before the meeting.</h2><Link href="/contact" className="button-primary">Talk with Webintel <Icon name="arrow-up-right" width={16} height={16} /></Link></div></div></section></>;
-}
+  return (
+    <>
+      <RouteHero
+        eyebrow="Company & Engineering Architecture"
+        title="Making the Public Web Perimeter Legible."
+        body="WebIntel was built to give engineering, security, and operations teams a continuous, automated readout of their public attack surface and technology stack."
+      />
 
-function Step({ number, title, body }: { number: string; title: string; body: string }) { return <div className="flex gap-5"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-emerald-800/70 font-mono text-[10px] text-emerald-300">{number}</span><div><h3 className="text-base font-medium text-white">{title}</h3><p className="muted-copy mt-2">{body}</p></div></div>; }
+      {/* Engineering Architecture Pipeline */}
+      <section className="shell py-20 sm:py-28">
+        <div className="max-w-3xl">
+          <p className="eyebrow">The Telemetry Engine</p>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            How WebIntel Probes and Analyzes Surfaces
+          </h2>
+          <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+            Unlike legacy vulnerability scanners that rely on intrusive brute-force attacks, WebIntel
+            uses passive network reconnaissance and high-precision DOM signature classification.
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {pipelineSteps.map((item) => (
+            <div key={item.step} className="panel p-6 flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-xs font-bold text-emerald-400">
+                  {item.step}
+                </span>
+                <h3 className="mt-4 text-base font-semibold text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-2.5 text-xs leading-relaxed text-zinc-400">
+                  {item.body}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Core Principles */}
+      <section className="border-t border-white/[0.08] bg-[#050806] py-20 sm:py-28">
+        <div className="shell">
+          <div className="max-w-2xl">
+            <p className="eyebrow">Operating Principles</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Engineered with Integrity and Precision
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {principles.map((p) => (
+              <div key={p.title} className="panel p-6 sm:p-7">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.03] text-emerald-400">
+                  <Icon name={p.icon} width={20} height={20} />
+                </span>
+                <h3 className="mt-6 text-base font-semibold text-white">{p.title}</h3>
+                <p className="mt-2 text-xs leading-relaxed text-zinc-400">{p.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-14 card-terminal p-8 sm:p-10 border-white/[0.08] bg-[#070c09] flex flex-col justify-between gap-6 sm:flex-row sm:items-center">
+            <div>
+              <h3 className="text-xl font-bold text-white">Ready to inspect your domain estate?</h3>
+              <p className="mt-1.5 text-xs text-zinc-400">
+                Experience automated surface intelligence on any public website in under 60 seconds.
+              </p>
+            </div>
+            <Link href="/contact" className="button-primary text-xs shrink-0">
+              <span>Get Started with WebIntel</span>
+              <Icon name="arrow-up-right" width={13} height={13} />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
