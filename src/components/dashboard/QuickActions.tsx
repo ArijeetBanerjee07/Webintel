@@ -4,7 +4,7 @@
 import { useState } from "react";
 import {
   Activity,
-  ArrowRight,
+  
   Globe,
   Plus,
   Search,

@@ -8,7 +8,7 @@ import {
   FileText,
   Code,
   Users,
-  ArrowUpRight,
+  
   AlertTriangle,
   Target,
   Layers,
