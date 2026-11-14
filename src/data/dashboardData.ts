@@ -52,7 +52,7 @@ export const websiteHealthScores = [
     description: "Search optimization",
   },
   {
-    title: "Technical Score",
+    title: "Tech Score",
     score: 89,
     color: "#A78BFA",
     description: "Technical performance",
