@@ -1,3 +1,4 @@
+"use client";
 
 import DashboardStat from "@/components/dashboard/DashboardStat";
 import WebsiteHealth from "@/components/dashboard/WebsiteHealth";
