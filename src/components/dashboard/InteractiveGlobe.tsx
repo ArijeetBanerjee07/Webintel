@@ -7,31 +7,118 @@ interface GlobePoint {
   y: number;
   z: number;
   size: number;
-  isLand?: boolean;
+  isLand: boolean;
 }
 
-interface LocationMarker {
-  id: string;
-  name: string;
-  lat: number;
-  lon: number;
-  active?: boolean;
+// Accurate continental boundary polygons
+function pointInPoly(lat: number, lon: number, poly: number[][]): boolean {
+  let inside = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const yi = poly[i][0], xi = poly[i][1];
+    const yj = poly[j][0], xj = poly[j][1];
+    const intersect =
+      yi > lat !== yj > lat &&
+      lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi;
+    if (intersect) inside = !inside;
+  }
+  return inside;
 }
 
-const PRESET_LOCATIONS: LocationMarker[] = [
-  { id: "nl", name: "Netherlands", lat: 52.3676, lon: 4.9041, active: true },
-  { id: "de", name: "Frankfurt", lat: 50.1109, lon: 8.6821 },
-  { id: "us", name: "Silicon Valley", lat: 37.3861, lon: -122.0839 },
-  { id: "sg", name: "Singapore", lat: 1.3521, lon: 103.8198 },
-  { id: "jp", name: "Tokyo", lat: 35.6762, lon: 139.6503 },
+const AFRICA = [
+  [37, -6], [37, 10], [31, 25], [31, 32], [28, 34], [22, 37], [15, 42],
+  [11, 51], [2, 46], [-5, 40], [-15, 41], [-26, 33], [-34, 26], [-35, 20],
+  [-34, 18], [-22, 14], [-6, 12], [4, 9], [5, 2], [5, -2], [4, -8],
+  [7, -12], [11, -15], [15, -17], [21, -17], [28, -13], [35, -6], [37, -6],
 ];
+
+const MADAGASCAR = [
+  [-12, 49], [-16, 50], [-25, 47], [-26, 44], [-16, 44], [-12, 49],
+];
+
+const IBERIA = [
+  [36, -9], [44, -9], [43, -2], [43, 3], [36, -5], [36, -9],
+];
+
+const EUROPE_CORE = [
+  [43, -2], [47, -3], [50, 1], [53.5, 4.5], [53.5, 7.2], [54, 14],
+  [59, 26], [55, 38], [48, 38], [45, 29], [40, 26], [36, 22], [37, 15],
+  [44, 13], [41, 16], [38, 16], [37, 13], [44, 8], [43, 3], [43, -2],
+];
+
+const SCANDINAVIA = [
+  [55, 8], [58, 6], [62, 5], [71, 26], [68, 30], [60, 24], [56, 14], [55, 8],
+];
+
+const BRITISH_ISLES = [
+  [50, -5], [52, -5], [56, -6], [58, -5], [58, -2], [54, 0], [51, 1], [50, -1], [50, -5],
+];
+
+const ARABIA = [
+  [30, 33], [32, 36], [30, 48], [24, 57], [17, 55], [12, 44], [15, 42], [27, 34], [30, 33],
+];
+
+const ANATOLIA = [
+  [36, 26], [42, 27], [42, 42], [37, 43], [36, 36], [36, 26],
+];
+
+const ASIA_RUSSIA = [
+  [45, 30], [55, 38], [60, 30], [70, 31], [75, 40], [77, 105], [73, 140],
+  [66, 170], [60, 163], [52, 141], [43, 132], [50, 90], [50, 50], [45, 30],
+];
+
+const INDIA = [
+  [25, 68], [34, 74], [28, 88], [22, 89], [16, 82], [8, 77], [13, 74], [21, 70], [25, 68],
+];
+
+const CHINA_EAST_ASIA = [
+  [20, 100], [22, 114], [30, 122], [40, 124], [43, 131], [45, 120], [45, 90], [30, 80], [20, 100],
+];
+
+const SE_ASIA = [
+  [22, 98], [21, 108], [10, 107], [1, 104], [14, 98], [22, 98],
+];
+
+const JAPAN = [
+  [31, 130], [36, 136], [41, 141], [45, 142], [43, 145], [35, 140], [31, 130],
+];
+
+const NORTH_AMERICA = [
+  [70, -165], [72, -130], [70, -95], [60, -64], [47, -53], [44, -66],
+  [41, -71], [30, -81], [25, -80], [29, -89], [26, -97], [19, -96],
+  [15, -93], [8, -78], [14, -87], [20, -105], [30, -114], [34, -120],
+  [48, -125], [58, -137], [60, -150], [65, -168], [70, -165],
+];
+
+const SOUTH_AMERICA = [
+  [12, -72], [10, -62], [5, -52], [-3, -40], [-8, -35], [-23, -42],
+  [-35, -55], [-55, -67], [-53, -75], [-40, -74], [-18, -71], [-4, -81],
+  [5, -77], [12, -72],
+];
+
+const AUSTRALIA = [
+  [-11, 131], [-11, 142], [-23, 151], [-33, 152], [-38, 147], [-35, 117],
+  [-22, 114], [-15, 125], [-11, 131],
+];
+
+const ALL_LAND = [
+  AFRICA, MADAGASCAR, IBERIA, EUROPE_CORE, SCANDINAVIA, BRITISH_ISLES,
+  ARABIA, ANATOLIA, ASIA_RUSSIA, INDIA, CHINA_EAST_ASIA, SE_ASIA, JAPAN,
+  NORTH_AMERICA, SOUTH_AMERICA, AUSTRALIA,
+];
+
+function isLand(lat: number, lon: number): boolean {
+  for (let i = 0; i < ALL_LAND.length; i++) {
+    if (pointInPoly(lat, lon, ALL_LAND[i])) return true;
+  }
+  return false;
+}
+
+const NETHERLANDS = { name: "Netherlands", lat: 52.3676, lon: 4.9041 };
 
 export default function InteractiveGlobe() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [selectedLocation, setSelectedLocation] = useState<LocationMarker>(
-    PRESET_LOCATIONS[0]
-  );
+
   const [markerScreenPos, setMarkerScreenPos] = useState<{
     x: number;
     y: number;
@@ -60,64 +147,52 @@ export default function InteractiveGlobe() {
 
     window.addEventListener("resize", updateSize);
 
-    // Generate 3D point cloud of a sphere with landmass density
+    // High-resolution sphere generation with fine continent details
     const points: GlobePoint[] = [];
-    const numLat = 38;
-    const numLon = 76;
-
-    // Approximate continent boundaries for high-density emerald dots
-    const isLandmass = (lat: number, lon: number): boolean => {
-      // Europe & North Africa / Middle East
-      if (lat >= 30 && lat <= 70 && lon >= -10 && lon <= 45) return true;
-      // Africa
-      if (lat >= -35 && lat < 30 && lon >= -18 && lon <= 50) return true;
-      // North America
-      if (lat >= 15 && lat <= 70 && lon >= -165 && lon <= -55) return true;
-      // South America
-      if (lat >= -55 && lat < 15 && lon >= -82 && lon <= -35) return true;
-      // Asia
-      if (lat >= 8 && lat <= 75 && lon >= 45 && lon <= 150) return true;
-      // Australia / Oceania
-      if (lat >= -45 && lat <= -10 && lon >= 110 && lon <= 155) return true;
-      return false;
-    };
+    const numLat = 116; // 116 fine latitude rings
 
     for (let i = 0; i < numLat; i++) {
       const phi = (i / numLat) * Math.PI; // 0 to PI
-      const latDeg = 90 - (i / numLat) * 180;
-      const count = Math.max(8, Math.floor(numLon * Math.sin(phi)));
+      const lat = 90 - (i / numLat) * 180;
+      // Density scaled by latitude circumference
+      const count = Math.max(8, Math.floor(230 * Math.sin(phi)));
 
       for (let j = 0; j < count; j++) {
         const theta = (j / count) * 2 * Math.PI; // 0 to 2PI
-        const lonDeg = -180 + (j / count) * 360;
-        const isLand = isLandmass(latDeg, lonDeg);
+        const lon = -180 + (j / count) * 360;
+        const land = isLand(lat, lon);
 
-        // Density weighting: add more points if it's a continent
-        const repeat = isLand ? 2 : 1;
-        for (let r = 0; r < repeat; r++) {
-          const jitterLat = isLand ? (Math.random() - 0.5) * 0.04 : 0;
-          const jitterLon = isLand ? (Math.random() - 0.5) * 0.04 : 0;
-          const currentPhi = phi + jitterLat;
-          const currentTheta = theta + jitterLon;
-
+        if (land) {
+          // Precise continental dot (smaller, dense, glowing)
           points.push({
-            x: Math.sin(currentPhi) * Math.cos(currentTheta),
-            y: Math.cos(currentPhi),
-            z: Math.sin(currentPhi) * Math.sin(currentTheta),
-            size: isLand ? 1.4 : 0.8,
-            isLand,
+            x: Math.sin(phi) * Math.cos(theta),
+            y: Math.cos(phi),
+            z: Math.sin(phi) * Math.sin(theta),
+            size: 0.95,
+            isLand: true,
+          });
+        } else if (i % 4 === 0 && j % 4 === 0) {
+          // Sparse micro dot in ocean to establish sphere depth
+          points.push({
+            x: Math.sin(phi) * Math.cos(theta),
+            y: Math.cos(phi),
+            z: Math.sin(phi) * Math.sin(theta),
+            size: 0.5,
+            isLand: false,
           });
         }
       }
     }
 
-    // Rotation state
-    let rotX = 0.38; // Tilted towards viewer
-    let rotY = 1.2; // Initial rotation facing Europe/Netherlands
+    // Rotation state: Tilted view facing Europe & Africa
+    let rotX = 0.38;
+    let rotY = 1.18;
     let isDragging = false;
     let prevMouseX = 0;
     let prevMouseY = 0;
-    const autoRotateSpeed = 0.0035;
+
+    // Slower, graceful, cinematic spin speed
+    const autoRotateSpeed = 0.0009;
 
     const onMouseDown = (e: MouseEvent) => {
       isDragging = true;
@@ -129,9 +204,8 @@ export default function InteractiveGlobe() {
       if (!isDragging) return;
       const dx = e.clientX - prevMouseX;
       const dy = e.clientY - prevMouseY;
-      rotY += dx * 0.006;
-      rotX += dy * 0.006;
-      // Clamp vertical tilt
+      rotY += dx * 0.005;
+      rotX += dy * 0.005;
       rotX = Math.max(-0.8, Math.min(0.9, rotX));
       prevMouseX = e.clientX;
       prevMouseY = e.clientY;
@@ -153,8 +227,8 @@ export default function InteractiveGlobe() {
       if (!isDragging || e.touches.length !== 1) return;
       const dx = e.touches[0].clientX - prevMouseX;
       const dy = e.touches[0].clientY - prevMouseY;
-      rotY += dx * 0.006;
-      rotX += dy * 0.006;
+      rotY += dx * 0.005;
+      rotX += dy * 0.005;
       rotX = Math.max(-0.8, Math.min(0.9, rotX));
       prevMouseX = e.touches[0].clientX;
       prevMouseY = e.touches[0].clientY;
@@ -171,7 +245,7 @@ export default function InteractiveGlobe() {
     window.addEventListener("touchmove", onTouchMove);
     window.addEventListener("touchend", onTouchEnd);
 
-    // Convert lat/lon of selected location into 3D unit coordinates
+    // Convert lat/lon into 3D unit coordinates
     const getUnitVector = (lat: number, lon: number) => {
       const phi = (90 - lat) * (Math.PI / 180);
       const theta = (lon + 180) * (Math.PI / 180);
@@ -193,33 +267,33 @@ export default function InteractiveGlobe() {
       const dpr = window.devicePixelRatio || 1;
       const currentRadius = Math.min(width, height) * 0.44;
       const centerX = width / 2;
-      const centerY = height * 0.62; // Center lower so the top curves dramatically like Image 2
+      const centerY = height * 0.62;
 
       ctx.clearRect(0, 0, width, height);
 
-      // Ambient emerald horizon glow behind globe
+      // Atmospheric radial emerald glow
       const ambientGrad = ctx.createRadialGradient(
         centerX,
         centerY - currentRadius * 0.2,
-        currentRadius * 0.3,
+        currentRadius * 0.25,
         centerX,
         centerY,
-        currentRadius * 1.3
+        currentRadius * 1.35
       );
-      ambientGrad.addColorStop(0, "rgba(5, 150, 105, 0.16)");
-      ambientGrad.addColorStop(0.5, "rgba(4, 120, 87, 0.08)");
-      ambientGrad.addColorStop(0.85, "rgba(2, 44, 34, 0.03)");
+      ambientGrad.addColorStop(0, "rgba(5, 150, 105, 0.18)");
+      ambientGrad.addColorStop(0.45, "rgba(4, 120, 87, 0.08)");
+      ambientGrad.addColorStop(0.8, "rgba(2, 44, 34, 0.02)");
       ambientGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
       ctx.fillStyle = ambientGrad;
       ctx.beginPath();
-      ctx.arc(centerX, centerY, currentRadius * 1.3, 0, Math.PI * 2);
+      ctx.arc(centerX, centerY, currentRadius * 1.35, 0, Math.PI * 2);
       ctx.fill();
 
-      // Atmospheric limb glow
+      // Atmospheric outer perimeter limb ring
       ctx.beginPath();
-      ctx.arc(centerX, centerY, currentRadius * 1.01, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(16, 185, 129, 0.18)";
-      ctx.lineWidth = 1.5 * dpr;
+      ctx.arc(centerX, centerY, currentRadius * 1.008, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(16, 185, 129, 0.16)";
+      ctx.lineWidth = 1.2 * dpr;
       ctx.stroke();
 
       const cosX = Math.cos(rotX);
@@ -227,7 +301,7 @@ export default function InteractiveGlobe() {
       const cosY = Math.cos(rotY);
       const sinY = Math.sin(rotY);
 
-      // Rotate and project points
+      // Project points
       const projected = [];
 
       for (let i = 0; i < points.length; i++) {
@@ -241,44 +315,50 @@ export default function InteractiveGlobe() {
         const y2 = p.y * cosX - z1 * sinX;
         const z2 = p.y * sinX + z1 * cosX;
 
-        // Scale by radius
-        const screenX = centerX + x1 * currentRadius;
-        const screenY = centerY - y2 * currentRadius;
-
         projected.push({
-          x: screenX,
-          y: screenY,
+          x: centerX + x1 * currentRadius,
+          y: centerY - y2 * currentRadius,
           z: z2,
           isLand: p.isLand,
           size: p.size,
         });
       }
 
-      // Sort by Z for proper depth rendering
+      // Sort by Z for realistic depth
       projected.sort((a, b) => a.z - b.z);
 
       for (let i = 0; i < projected.length; i++) {
         const pt = projected[i];
+        const depth = (pt.z + 1) / 2; // [0, 1]
 
-        // Depth factor [-1, 1] mapped to [0, 1]
-        const depth = (pt.z + 1) / 2;
+        if (!pt.isLand) {
+          // Ocean micro-dots (very subtle, non-intrusive)
+          if (depth > 0.3) {
+            ctx.fillStyle = `rgba(16, 185, 129, ${0.08 * depth})`;
+            ctx.beginPath();
+            ctx.arc(pt.x, pt.y, 0.6 * dpr, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          continue;
+        }
 
+        // Continental land dots (smaller, sharp, detailed)
         if (depth < 0.25) {
-          // Deep back hemisphere (dim faint forest green)
-          ctx.fillStyle = `rgba(5, 70, 40, ${0.12 * depth})`;
+          // Back hemisphere
+          ctx.fillStyle = `rgba(4, 90, 48, ${0.18 * depth})`;
           ctx.beginPath();
-          ctx.arc(pt.x, pt.y, (pt.size * 0.7 * dpr), 0, Math.PI * 2);
+          ctx.arc(pt.x, pt.y, 0.65 * dpr, 0, Math.PI * 2);
           ctx.fill();
         } else {
-          // Front hemisphere (vibrant neon emerald)
-          const brightness = Math.pow(depth, 1.6);
-          const alpha = pt.isLand ? 0.35 + brightness * 0.65 : 0.15 + brightness * 0.4;
-          const radius = (pt.isLand ? pt.size * 1.2 : pt.size * 0.9) * dpr * (0.6 + brightness * 0.7);
+          // Front hemisphere (luminous emerald)
+          const brightness = Math.pow(depth, 1.4);
+          const alpha = 0.45 + brightness * 0.55;
+          const radius = (pt.size * dpr) * (0.65 + brightness * 0.45);
 
-          if (brightness > 0.75 && pt.isLand) {
+          if (brightness > 0.72) {
             ctx.fillStyle = `rgba(0, 255, 136, ${alpha})`;
-            ctx.shadowColor = "rgba(0, 255, 136, 0.4)";
-            ctx.shadowBlur = 4 * dpr;
+            ctx.shadowColor = "rgba(0, 255, 136, 0.5)";
+            ctx.shadowBlur = 3 * dpr;
           } else {
             ctx.fillStyle = `rgba(16, 185, 129, ${alpha})`;
             ctx.shadowBlur = 0;
@@ -291,12 +371,8 @@ export default function InteractiveGlobe() {
       }
       ctx.shadowBlur = 0;
 
-      // Project Location Marker (e.g. Netherlands)
-      const locVec = getUnitVector(
-        selectedLocation.lat,
-        selectedLocation.lon
-      );
-
+      // Netherlands Location Pin (matching Image 2)
+      const locVec = getUnitVector(NETHERLANDS.lat, NETHERLANDS.lon);
       const lx1 = locVec.x * cosY + locVec.z * sinY;
       const lz1 = -locVec.x * sinY + locVec.z * cosY;
       const ly2 = locVec.y * cosX - lz1 * sinX;
@@ -304,42 +380,42 @@ export default function InteractiveGlobe() {
 
       const markerScreenX = centerX + lx1 * currentRadius;
       const markerScreenY = centerY - ly2 * currentRadius;
-      const isVisibleOnFront = lz2 > 0.1;
+      const isVisibleOnFront = lz2 > 0.08;
 
       if (isVisibleOnFront) {
-        // Draw pulsating beacon rings on surface
-        const pulse = (tick % 70) / 70;
-        const ringRadius = (8 + pulse * 18) * dpr;
+        // Beacon pulse rings on surface
+        const pulse = (tick % 80) / 80;
+        const ringRadius = (7 + pulse * 18) * dpr;
         const ringAlpha = (1 - pulse) * 0.75;
 
         ctx.strokeStyle = `rgba(0, 255, 136, ${ringAlpha})`;
-        ctx.lineWidth = 1.5 * dpr;
+        ctx.lineWidth = 1.3 * dpr;
         ctx.beginPath();
         ctx.arc(markerScreenX, markerScreenY, ringRadius, 0, Math.PI * 2);
         ctx.stroke();
 
-        // Pin core dot
+        // Pin core center
         ctx.fillStyle = "#00ff88";
         ctx.shadowColor = "#00ff88";
         ctx.shadowBlur = 10 * dpr;
         ctx.beginPath();
-        ctx.arc(markerScreenX, markerScreenY, 4 * dpr, 0, Math.PI * 2);
+        ctx.arc(markerScreenX, markerScreenY, 3.5 * dpr, 0, Math.PI * 2);
         ctx.fill();
         ctx.shadowBlur = 0;
 
-        // Stem connecting surface to floating badge
+        // Dotted stem to floating badge
         ctx.strokeStyle = "rgba(0, 255, 136, 0.4)";
         ctx.lineWidth = 1 * dpr;
         ctx.setLineDash([3 * dpr, 3 * dpr]);
         ctx.beginPath();
         ctx.moveTo(markerScreenX, markerScreenY);
-        ctx.lineTo(markerScreenX, markerScreenY - 32 * dpr);
+        ctx.lineTo(markerScreenX, markerScreenY - 30 * dpr);
         ctx.stroke();
         ctx.setLineDash([]);
 
         setMarkerScreenPos({
           x: markerScreenX / dpr,
-          y: (markerScreenY - 36 * dpr) / dpr,
+          y: (markerScreenY - 34 * dpr) / dpr,
           visible: true,
         });
       } else {
@@ -361,7 +437,7 @@ export default function InteractiveGlobe() {
       window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("touchend", onTouchEnd);
     };
-  }, [selectedLocation]);
+  }, []);
 
   return (
     <div
@@ -374,7 +450,7 @@ export default function InteractiveGlobe() {
         className="w-full h-full cursor-grab active:cursor-grabbing block"
       />
 
-      {/* Floating 3D Location Badge (Styled exactly as in Image 2) */}
+      {/* Floating 3D Location Badge (Image 2 style) */}
       {markerScreenPos.visible && (
         <div
           className="absolute pointer-events-none transition-transform duration-75 ease-out -translate-x-1/2 -translate-y-full"
@@ -385,36 +461,10 @@ export default function InteractiveGlobe() {
         >
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#092212]/90 border border-emerald-400/40 text-white text-xs font-medium shadow-[0_0_24px_rgba(16,185,129,0.35)] backdrop-blur-md">
             <span className="text-emerald-400 text-sm">📍</span>
-            <span className="tracking-wide text-white">{selectedLocation.name}</span>
+            <span className="tracking-wide text-white">{NETHERLANDS.name}</span>
           </div>
         </div>
       )}
-
-      {/* Region Switcher Pills below or at bottom right */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-[#041007]/80 backdrop-blur-md border border-emerald-500/20 px-3 py-1.5 rounded-full text-xs z-10">
-        <span className="text-emerald-400/80 mr-1 hidden sm:inline">Active Edge:</span>
-        {PRESET_LOCATIONS.map((loc) => {
-          const isSelected = selectedLocation.id === loc.id;
-          return (
-            <button
-              key={loc.id}
-              onClick={() => setSelectedLocation(loc)}
-              className={`px-2.5 py-1 rounded-full text-xs font-medium transition cursor-pointer ${
-                isSelected
-                  ? "bg-emerald-500 text-slate-950 font-semibold shadow-[0_0_12px_rgba(16,185,129,0.5)]"
-                  : "text-slate-400 hover:text-white hover:bg-emerald-500/10"
-              }`}
-            >
-              {loc.name}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Drag instruction hint */}
-      <div className="absolute top-4 right-4 pointer-events-none text-[11px] text-emerald-400/50 bg-[#041007]/60 border border-emerald-500/10 px-2.5 py-1 rounded-full">
-        Drag to rotate sphere
-      </div>
     </div>
   );
 }
