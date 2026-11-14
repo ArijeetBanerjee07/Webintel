@@ -42,25 +42,25 @@ export const websiteHealthScores = [
   {
     title: "Overall Health",
     score: 82,
-    color: "#34D399",
+    color: "#10B981",
     description: "Good website health",
   },
   {
     title: "SEO Score",
     score: 76,
-    color: "#38BDF8",
+    color: "#34D399",
     description: "Search optimization",
   },
   {
     title: "Tech Score",
     score: 89,
-    color: "#A78BFA",
+    color: "#05DF72",
     description: "Technical performance",
   },
   {
     title: "Content Score",
     score: 72,
-    color: "#FBBF24",
+    color: "#6EE7B7",
     description: "Content quality",
   },
 ];
@@ -75,12 +75,12 @@ export const healthTrendData = [
 ];
 
 export const trafficSourceData = [
-  { name: "Organic Search", value: 42, color: "#34D399" },
-  { name: "Direct Traffic", value: 25, color: "#38BDF8" },
-  { name: "Referral", value: 18, color: "#A78BFA" },
-  { name: "Social Media", value: 8, color: "#FBBF24" },
-  { name: "Paid Search", value: 5, color: "#F87171" },
-  { name: "Email", value: 2, color: "#FB923C" },
+  { name: "Organic Search", value: 42, color: "#10B981" },
+  { name: "Direct Traffic", value: 25, color: "#05DF72" },
+  { name: "Referral", value: 18, color: "#34D399" },
+  { name: "Social Media", value: 8, color: "#059669" },
+  { name: "Paid Search", value: 5, color: "#047857" },
+  { name: "Email", value: 2, color: "#065F46" },
 ];
 
 

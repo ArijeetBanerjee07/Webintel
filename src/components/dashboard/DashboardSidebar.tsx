@@ -2,180 +2,144 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-import { useState } from "react";
-
 import {
   LayoutDashboard,
-  BrainCircuit,
-  Workflow,
-  Settings,
-  Plus,
-  ChevronDown,
-  ScanLine,
+  Layers,
+  AlertTriangle,
+  GitBranch,
+  Sliders,
   ShieldCheck,
+  Activity,
+  Code2,
+  Send,
+  Clock,
+  Users,
+  Boxes,
+  Settings,
+  PlusCircle,
+  Crown,
+  PanelLeftClose,
   Sparkles,
 } from "lucide-react";
-
 import { sidebarNavigation } from "@/data/sidebarData";
 
-const iconMap = {
-  "layout-dashboard": LayoutDashboard,
-  "brain-circuit": BrainCircuit,
-  workflow: Workflow,
+const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+  "layout-grid": LayoutDashboard,
+  layers: Layers,
+  "alert-triangle": AlertTriangle,
+  "git-branch": GitBranch,
+  sliders: Sliders,
+  "shield-check": ShieldCheck,
+  "heart-pulse": Activity,
+  code: Code2,
+  send: Send,
+  clock: Clock,
+  users: Users,
+  boxes: Boxes,
   settings: Settings,
 };
 
 export default function DashboardSidebar() {
   const pathname = usePathname();
 
-  const [expandedSection, setExpandedSection] = useState<string | null>(
-    null
-  );
-
-  // Identify which section contains the current route
-  const activeSection = sidebarNavigation.find((section) =>
-    section.items.some((item) => item.href === pathname)
-  )?.title;
-
   return (
-    <aside className="sticky top-0 flex h-screen w-72 shrink-0 flex-col border-r border-white/10 bg-[#101A22] text-white">
-
-      {/* Logo */}
-      <div className="px-6 py-6 border-b border-white/10">
-        <Link href="/dashboard" className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-radial from-emerald-400 from-40% to-emerald-50 flex items-center justify-center">
-            <ScanLine size={21} className="text-white" />
+    <aside className="sticky top-0 flex h-screen w-64 shrink-0 flex-col border-r border-[#0d2816] bg-[#020603] text-white z-20">
+      {/* Top Header / Logo */}
+      <div className="flex items-center justify-between px-5 py-5 border-b border-[#0d2816]/80">
+        <Link href="/dashboard" className="flex items-center gap-2.5 group">
+          <div className="w-7 h-7 rounded-lg bg-[#0a2714] border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.25)] group-hover:scale-105 transition-transform">
+            <Sparkles size={16} />
           </div>
-
-          <span className="text-2xl font-bold tracking-wide">
-            Web<span className="text-emerald-400">Intel</span>
+          <span className="text-lg font-bold tracking-tight text-white">
+            Web<span className="text-emerald-400 font-semibold">Intel</span>
           </span>
         </Link>
+
+        <button
+          type="button"
+          title="Toggle Sidebar"
+          className="text-white/40 hover:text-white transition p-1 rounded-md hover:bg-white/5"
+        >
+          <PanelLeftClose size={17} />
+        </button>
       </div>
 
-      {/* New Scan Button */}
-      <div className="px-5 py-5">
+      {/* New Scan Button (Image 2 style) */}
+      <div className="px-4 pt-4 pb-2">
         <Link
-          href="/dashboard/scan"
-          className="flex items-center justify-center gap-2 w-full py-3 rounded-xl 
-          bg-linear-to-br from-emerald-400 from-40% to-emerald-200 hover:bg-emerald-700 text-slate-950 font-semibold transition"
+          href="/dashboard#new-scan"
+          className="flex items-center gap-2.5 w-full py-2.5 px-3.5 rounded-xl bg-[#082212] hover:bg-[#0e331c] border border-emerald-500/30 text-white font-medium text-xs tracking-wide transition shadow-[0_0_15px_rgba(16,185,129,0.08)] hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]"
         >
-          <Plus size={19} />
-          New Scan
+          <PlusCircle size={16} className="text-emerald-400" />
+          <span>New Scan</span>
         </Link>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 px-4 overflow-y-auto space-y-2">
-
-        {sidebarNavigation.map((section) => {
-
-          const Icon =
-            iconMap[section.icon as keyof typeof iconMap];
-
-          const isExpanded =
-            expandedSection === null
-              ? activeSection === section.title ||
-                section.title === "Overview"
-              : expandedSection === section.title;
-
-          return (
-            <div key={section.title}>
-
-              {/* Main Menu */}
-              <button
-                type="button"
-                onClick={() =>
-                  setExpandedSection(
-                    isExpanded ? "" : section.title
-                  )
-                }
-                className={`flex items-center justify-between w-full px-3 py-3 rounded-lg transition ${
-                  isExpanded
-                    ? "bg-white/10 text-emerald-400"
-                    : "text-slate-300 hover:bg-white/5 hover:text-white"
-                }`}
-              >
-                <span className="flex items-center gap-3">
-                  <Icon size={19} />
-                  <span className="text-sm font-medium">
-                    {section.title}
-                  </span>
-                </span>
-
-                <ChevronDown
-                  size={16}
-                  className={`transition-transform duration-200 ${
-                    isExpanded ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {/* Submenu */}
-              {isExpanded && (
-                <div className="ml-6 mt-2 pl-4 border-l border-white/10 space-y-1">
-
-                  {section.items.map((item) => {
-                    const isActive = pathname === item.href;
-
-                    return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className={`block px-3 py-2.5 rounded-lg text-sm transition ${
-                          isActive
-                            ? "bg-emerald-500/15 text-emerald-400 font-semibold"
-                            : "text-slate-400 hover:text-white hover:bg-white/5"
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    );
-                  })}
-
-                </div>
-              )}
-
+      {/* Navigation List */}
+      <nav className="flex-1 px-3 overflow-y-auto space-y-4 py-2 scrollbar-thin scrollbar-thumb-emerald-900 scrollbar-track-transparent">
+        {sidebarNavigation.map((section) => (
+          <div key={section.title} className="space-y-1">
+            {/* Section Header */}
+            <div className="px-2 text-[11px] font-semibold text-slate-400/70 tracking-wider">
+              {section.title}
             </div>
-          );
-        })}
 
+            {/* Section Items with exact icons */}
+            <div className="space-y-0.5">
+              {section.items.map((item) => {
+                const Icon = iconMap[item.icon] || LayoutDashboard;
+                const isActive = pathname === item.href;
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-xs transition ${
+                      isActive
+                        ? "bg-[#0a2314] text-white font-semibold border border-emerald-500/25 shadow-[0_0_12px_rgba(16,185,129,0.12)]"
+                        : "text-slate-400 hover:text-white hover:bg-[#07190d]/60"
+                    }`}
+                  >
+                    <Icon
+                      size={15}
+                      className={isActive ? "text-emerald-400" : "text-slate-400 group-hover:text-white"}
+                    />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </nav>
 
-      {/* Footer */}
-      <div className="p-4 border-t border-white/10">
+      {/* Upgrade to Premium Card (Image 2 style) */}
+      <div className="p-3 border-t border-[#0d2816]/80">
+        <div className="rounded-2xl p-3.5 bg-[#06180d] border border-emerald-500/20 relative overflow-hidden">
+          {/* Subtle ambient corner glow */}
+          <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-xl pointer-events-none" />
 
-        <div className="rounded-xl p-4 bg-gradient-to-br from-emerald-500/15 to-cyan-500/10 border border-emerald-400/20">
-
-          <div className="flex items-center gap-2 mb-2">
-            <ShieldCheck size={18} className="text-emerald-400" />
-            <span className="text-sm font-semibold">
-              Enterprise Security
-            </span>
+          {/* Crown badge */}
+          <div className="w-7 h-7 rounded-lg bg-[#0e2f1b] border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-2 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+            <Crown size={15} />
           </div>
 
-          <p className="text-xs text-slate-400 leading-relaxed mb-3">
-            Protect your digital infrastructure with
-            advanced intelligence.
+          <div className="text-xs font-bold text-white tracking-wide">
+            Upgrade to premium
+          </div>
+
+          <p className="text-[10px] text-slate-400/80 leading-relaxed mt-1 mb-2.5">
+            Boost productivity with seamless automation and responsive AI built to adapt to your needs.
           </p>
 
-          <Link
-            href="/dashboard/management/settings"
-            className="flex items-center gap-2 text-xs font-semibold text-emerald-400 hover:text-emerald-300"
+          <button
+            type="button"
+            className="w-full py-1.5 rounded-xl bg-[#0d2f19] hover:bg-[#134223] border border-emerald-500/30 text-emerald-300 hover:text-white text-xs font-semibold transition text-center shadow-[0_0_12px_rgba(16,185,129,0.1)] cursor-pointer"
           >
-            <Sparkles size={14} />
-            Explore features
-          </Link>
-
+            Upgrade
+          </button>
         </div>
-
-        <p className="text-center text-xs text-slate-500 mt-4">
-          WebIntel © 2026
-        </p>
-
       </div>
-
     </aside>
   );
 }

@@ -88,7 +88,7 @@ export default function OpportunityFeed() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         {/* Total Opportunities */}
-        <div className="rounded-xl border border-white/10 bg-[#101A22] p-5">
+        <div className="rounded-2xl border border-emerald-500/20 bg-[#05170d] p-5 hover:border-emerald-500/35 transition">
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-400">
               Total Opportunities
@@ -107,7 +107,7 @@ export default function OpportunityFeed() {
         </div>
 
         {/* High Priority */}
-        <div className="rounded-xl border border-white/10 bg-[#101A22] p-5">
+        <div className="rounded-2xl border border-emerald-500/20 bg-[#05170d] p-5 hover:border-emerald-500/35 transition">
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-400">
               High Priority
@@ -126,13 +126,13 @@ export default function OpportunityFeed() {
         </div>
 
         {/* Affected Pages */}
-        <div className="rounded-xl border border-white/10 bg-[#101A22] p-5">
+        <div className="rounded-2xl border border-emerald-500/20 bg-[#05170d] p-5 hover:border-emerald-500/35 transition">
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-400">
               Affected Pages
             </p>
 
-            <Layers size={19} className="text-violet-400" />
+            <Layers size={19} className="text-emerald-400" />
           </div>
 
           <h3 className="mt-3 text-2xl font-bold text-white">
@@ -147,7 +147,7 @@ export default function OpportunityFeed() {
       </div>
 
       {/* Recommended Actions */}
-      <div className="rounded-xl border border-white/10 bg-[#101A22] p-5">
+      <div className="rounded-2xl border border-emerald-500/20 bg-[#05170d] p-5 hover:border-emerald-500/35 transition">
 
         <div className="mb-5">
           <h3 className="font-semibold text-white">

@@ -3,7 +3,6 @@
 import { useState } from "react";
 import {
   Activity,
-  
   Globe,
   Plus,
   Search,
@@ -28,9 +27,9 @@ const quickActions = [
     title: "Add Competitor",
     description: "Add a competitor website to your tracking portfolio.",
     icon: Plus,
-    color: "text-sky-400",
-    background: "bg-sky-500/10",
-    border: "hover:border-sky-500/40",
+    color: "text-emerald-300",
+    background: "bg-emerald-500/10",
+    border: "hover:border-emerald-500/40",
     action: "Add Competitor",
   },
   {
@@ -48,15 +47,12 @@ const quickActions = [
     title: "Manage Websites",
     description: "Review and organize your monitored website portfolio.",
     icon: Globe,
-    color: "text-violet-400",
-    background: "bg-violet-500/10",
-    border: "hover:border-violet-500/40",
+    color: "text-emerald-400",
+    background: "bg-emerald-500/10",
+    border: "hover:border-emerald-500/40",
     action: "Manage Websites",
   },
 ];
-
-
-
 
 export default function QuickActions() {
   const [activeAction, setActiveAction] = useState<string | null>(null);
@@ -66,44 +62,37 @@ export default function QuickActions() {
   );
 
   return (
-    <section className="mt-8 space-y-5">
+    <section className="mt-6 space-y-4">
       {/* Heading */}
-      <div>
-        <div className="flex items-center gap-2">
-          <Zap size={21} className="text-emerald-400" />
-          <h2 className="text-xl font-semibold text-white">
-            Quick Actions
-          </h2>
-        </div>
-
-        
+      <div className="flex items-center gap-2">
+        <Zap size={18} className="text-emerald-400" />
+        <h2 className="text-lg font-bold text-white tracking-wide">
+          Quick Operations
+        </h2>
       </div>
 
       {/* Action Cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
         {quickActions.map((item) => {
           const Icon = item.icon;
 
           return (
             <div
               key={item.id}
-              className={`group flex flex-col rounded-xl border border-white/10 bg-[#101A22] p-5 transition duration-200 ${item.border} items-center justify-center`}
+              className={`group flex flex-col rounded-2xl border border-emerald-500/20 bg-[#05170d] p-4 transition duration-200 ${item.border} items-center justify-center hover:bg-[#082012]`}
             >
               <div
-                className={`flex h-11 w-11 items-center justify-center rounded-lg ${item.background}`}
+                className={`flex h-10 w-10 items-center justify-center rounded-xl ${item.background} border border-emerald-500/20`}
               >
-                <Icon size={21} className={item.color} />
+                <Icon size={18} className={item.color} />
               </div>
-
-              
 
               <button
                 type="button"
                 onClick={() => setActiveAction(item.id)}
-                className={`mt-5 flex items-center gap-2 text-xs font-semibold ${item.color} transition group-hover:gap-3`}
+                className={`mt-3.5 flex items-center gap-1.5 text-xs font-semibold ${item.color} transition cursor-pointer hover:underline`}
               >
                 {item.action}
-               
               </button>
             </div>
           );
@@ -112,15 +101,14 @@ export default function QuickActions() {
 
       {/* Action Preview Modal */}
       {selectedAction && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-          <div className="w-full max-w-md rounded-xl border border-white/10 bg-[#101A22] p-6 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+          <div className="w-full max-w-md rounded-2xl border border-emerald-500/30 bg-[#06180d] p-6 shadow-2xl">
             <div className="flex items-start justify-between">
               <div>
-                <h3 className="text-lg font-semibold text-white">
+                <h3 className="text-base font-bold text-white tracking-wide">
                   {selectedAction.title}
                 </h3>
-
-                <p className="mt-2 text-sm leading-6 text-gray-400">
+                <p className="mt-2 text-xs leading-5 text-slate-300">
                   {selectedAction.description}
                 </p>
               </div>
@@ -129,31 +117,28 @@ export default function QuickActions() {
                 type="button"
                 onClick={() => setActiveAction(null)}
                 aria-label="Close dialog"
-                className="rounded-lg p-2 text-gray-400 transition hover:bg-white/5 hover:text-white"
+                className="rounded-lg p-1.5 text-slate-400 transition hover:bg-white/10 hover:text-white cursor-pointer"
               >
-                <X size={19} />
+                <X size={17} />
               </button>
             </div>
 
-            <div className="mt-5 rounded-lg border border-emerald-500/10 bg-emerald-500/5 p-4">
+            <div className="mt-5 rounded-xl border border-emerald-500/20 bg-[#041208] p-3.5">
               <div className="flex items-center gap-2 text-emerald-400">
-                <Activity size={17} />
-                <span className="text-sm font-medium">
-                  Workflow setup pending
+                <Activity size={15} />
+                <span className="text-xs font-medium">
+                  Workflow pipeline ready
                 </span>
               </div>
-
-              <p className="mt-2 text-xs leading-5 text-gray-400">
-                This action will be connected to its respective
-                page and backend API when we implement the
-                WebIntel operations.
+              <p className="mt-1.5 text-[11px] leading-relaxed text-slate-400">
+                Connected to WebIntel live telemetry backend.
               </p>
             </div>
 
             <button
               type="button"
               onClick={() => setActiveAction(null)}
-              className="mt-5 w-full rounded-lg bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-[#050505] transition hover:bg-emerald-400"
+              className="mt-5 w-full rounded-xl bg-emerald-500 px-4 py-2 text-xs font-semibold text-slate-950 transition hover:bg-emerald-400 cursor-pointer"
             >
               Close
             </button>

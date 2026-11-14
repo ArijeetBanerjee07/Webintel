@@ -88,7 +88,7 @@ export default function MonitoringActivity() {
 
       {/* Activity Summary Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-xl border border-red-500/10 bg-[#101A22] p-4">
+        <div className="rounded-2xl border border-red-500/20 bg-[#05170d] p-4">
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-400">
               High Severity
@@ -105,13 +105,13 @@ export default function MonitoringActivity() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-orange-500/10 bg-[#101A22] p-4">
+        <div className="rounded-2xl border border-amber-500/20 bg-[#05170d] p-4">
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-400">
               Medium Severity
             </p>
             <AlertTriangle
-              className="text-orange-400"
+              className="text-amber-400"
               size={19}
             />
           </div>
@@ -125,7 +125,7 @@ export default function MonitoringActivity() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-emerald-500/10 bg-[#101A22] p-4">
+        <div className="rounded-2xl border border-emerald-500/20 bg-[#05170d] p-4">
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-400">
               Low Severity
@@ -147,7 +147,7 @@ export default function MonitoringActivity() {
       </div>
 
       {/* Activity List */}
-      <div className="rounded-xl border border-white/10 bg-[#101A22] p-5">
+      <div className="rounded-2xl border border-emerald-500/20 bg-[#05170d] p-5">
         <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h3 className="font-semibold text-white">

@@ -71,7 +71,7 @@ export default function RecentScans() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-xl border border-white/10 bg-[#101A22] p-4">
+        <div className="rounded-2xl border border-emerald-500/20 bg-[#05170d] p-4">
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-400">Completed Scans</p>
             <CheckCircle2 size={19} className="text-emerald-400" />
@@ -84,7 +84,7 @@ export default function RecentScans() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-white/10 bg-[#101A22] p-4">
+        <div className="rounded-2xl border border-emerald-500/20 bg-[#05170d] p-4">
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-400">Failed Scans</p>
             <XCircle size={19} className="text-red-400" />
@@ -97,7 +97,7 @@ export default function RecentScans() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-white/10 bg-[#101A22] p-4">
+        <div className="rounded-2xl border border-emerald-500/20 bg-[#05170d] p-4">
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-400">Issues Detected</p>
             <Activity size={19} className="text-amber-400" />
@@ -112,8 +112,8 @@ export default function RecentScans() {
       </div>
 
       {/* Scan History Table */}
-      <div className="overflow-hidden rounded-xl border border-white/10 bg-[#101A22]">
-        <div className="flex flex-col gap-3 border-b border-white/10 p-5 sm:flex-row sm:items-center sm:justify-between">
+      <div className="overflow-hidden rounded-2xl border border-emerald-500/20 bg-[#05170d]">
+        <div className="flex flex-col gap-3 border-b border-emerald-500/10 p-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h3 className="font-semibold text-white">
               Scan History
