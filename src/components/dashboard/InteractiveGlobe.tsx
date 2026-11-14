@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 interface GlobePoint {
   x: number;
@@ -113,17 +113,9 @@ function isLand(lat: number, lon: number): boolean {
   return false;
 }
 
-const NETHERLANDS = { name: "Netherlands", lat: 52.3676, lon: 4.9041 };
-
 export default function InteractiveGlobe() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const [markerScreenPos, setMarkerScreenPos] = useState<{
-    x: number;
-    y: number;
-    visible: boolean;
-  }>({ x: 0, y: 0, visible: false });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -245,21 +237,8 @@ export default function InteractiveGlobe() {
     window.addEventListener("touchmove", onTouchMove);
     window.addEventListener("touchend", onTouchEnd);
 
-    // Convert lat/lon into 3D unit coordinates
-    const getUnitVector = (lat: number, lon: number) => {
-      const phi = (90 - lat) * (Math.PI / 180);
-      const theta = (lon + 180) * (Math.PI / 180);
-      return {
-        x: -(Math.sin(phi) * Math.cos(theta)),
-        y: Math.cos(phi),
-        z: Math.sin(phi) * Math.sin(theta),
-      };
-    };
-
     // Render loop
-    let tick = 0;
     const render = () => {
-      tick++;
       if (!isDragging) {
         rotY += autoRotateSpeed;
       }
@@ -371,57 +350,6 @@ export default function InteractiveGlobe() {
       }
       ctx.shadowBlur = 0;
 
-      // Netherlands Location Pin (matching Image 2)
-      const locVec = getUnitVector(NETHERLANDS.lat, NETHERLANDS.lon);
-      const lx1 = locVec.x * cosY + locVec.z * sinY;
-      const lz1 = -locVec.x * sinY + locVec.z * cosY;
-      const ly2 = locVec.y * cosX - lz1 * sinX;
-      const lz2 = locVec.y * sinX + lz1 * cosX;
-
-      const markerScreenX = centerX + lx1 * currentRadius;
-      const markerScreenY = centerY - ly2 * currentRadius;
-      const isVisibleOnFront = lz2 > 0.08;
-
-      if (isVisibleOnFront) {
-        // Beacon pulse rings on surface
-        const pulse = (tick % 80) / 80;
-        const ringRadius = (7 + pulse * 18) * dpr;
-        const ringAlpha = (1 - pulse) * 0.75;
-
-        ctx.strokeStyle = `rgba(0, 255, 136, ${ringAlpha})`;
-        ctx.lineWidth = 1.3 * dpr;
-        ctx.beginPath();
-        ctx.arc(markerScreenX, markerScreenY, ringRadius, 0, Math.PI * 2);
-        ctx.stroke();
-
-        // Pin core center
-        ctx.fillStyle = "#00ff88";
-        ctx.shadowColor = "#00ff88";
-        ctx.shadowBlur = 10 * dpr;
-        ctx.beginPath();
-        ctx.arc(markerScreenX, markerScreenY, 3.5 * dpr, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-
-        // Dotted stem to floating badge
-        ctx.strokeStyle = "rgba(0, 255, 136, 0.4)";
-        ctx.lineWidth = 1 * dpr;
-        ctx.setLineDash([3 * dpr, 3 * dpr]);
-        ctx.beginPath();
-        ctx.moveTo(markerScreenX, markerScreenY);
-        ctx.lineTo(markerScreenX, markerScreenY - 30 * dpr);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        setMarkerScreenPos({
-          x: markerScreenX / dpr,
-          y: (markerScreenY - 34 * dpr) / dpr,
-          visible: true,
-        });
-      } else {
-        setMarkerScreenPos((prev) => ({ ...prev, visible: false }));
-      }
-
       animationFrameId = requestAnimationFrame(render);
     };
 
@@ -449,22 +377,6 @@ export default function InteractiveGlobe() {
         ref={canvasRef}
         className="w-full h-full cursor-grab active:cursor-grabbing block"
       />
-
-      {/* Floating 3D Location Badge (Image 2 style) */}
-      {markerScreenPos.visible && (
-        <div
-          className="absolute pointer-events-none transition-transform duration-75 ease-out -translate-x-1/2 -translate-y-full"
-          style={{
-            left: `${markerScreenPos.x}px`,
-            top: `${markerScreenPos.y}px`,
-          }}
-        >
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#092212]/90 border border-emerald-400/40 text-white text-xs font-medium shadow-[0_0_24px_rgba(16,185,129,0.35)] backdrop-blur-md">
-            <span className="text-emerald-400 text-sm">📍</span>
-            <span className="tracking-wide text-white">{NETHERLANDS.name}</span>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
