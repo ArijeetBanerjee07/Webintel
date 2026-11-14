@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { isLandCoordinate } from "./globeLandData";
 
 interface GlobePoint {
   x: number;
@@ -8,109 +9,6 @@ interface GlobePoint {
   z: number;
   size: number;
   isLand: boolean;
-}
-
-// Accurate continental boundary polygons
-function pointInPoly(lat: number, lon: number, poly: number[][]): boolean {
-  let inside = false;
-  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
-    const yi = poly[i][0], xi = poly[i][1];
-    const yj = poly[j][0], xj = poly[j][1];
-    const intersect =
-      yi > lat !== yj > lat &&
-      lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi;
-    if (intersect) inside = !inside;
-  }
-  return inside;
-}
-
-const AFRICA = [
-  [37, -6], [37, 10], [31, 25], [31, 32], [28, 34], [22, 37], [15, 42],
-  [11, 51], [2, 46], [-5, 40], [-15, 41], [-26, 33], [-34, 26], [-35, 20],
-  [-34, 18], [-22, 14], [-6, 12], [4, 9], [5, 2], [5, -2], [4, -8],
-  [7, -12], [11, -15], [15, -17], [21, -17], [28, -13], [35, -6], [37, -6],
-];
-
-const MADAGASCAR = [
-  [-12, 49], [-16, 50], [-25, 47], [-26, 44], [-16, 44], [-12, 49],
-];
-
-const IBERIA = [
-  [36, -9], [44, -9], [43, -2], [43, 3], [36, -5], [36, -9],
-];
-
-const EUROPE_CORE = [
-  [43, -2], [47, -3], [50, 1], [53.5, 4.5], [53.5, 7.2], [54, 14],
-  [59, 26], [55, 38], [48, 38], [45, 29], [40, 26], [36, 22], [37, 15],
-  [44, 13], [41, 16], [38, 16], [37, 13], [44, 8], [43, 3], [43, -2],
-];
-
-const SCANDINAVIA = [
-  [55, 8], [58, 6], [62, 5], [71, 26], [68, 30], [60, 24], [56, 14], [55, 8],
-];
-
-const BRITISH_ISLES = [
-  [50, -5], [52, -5], [56, -6], [58, -5], [58, -2], [54, 0], [51, 1], [50, -1], [50, -5],
-];
-
-const ARABIA = [
-  [30, 33], [32, 36], [30, 48], [24, 57], [17, 55], [12, 44], [15, 42], [27, 34], [30, 33],
-];
-
-const ANATOLIA = [
-  [36, 26], [42, 27], [42, 42], [37, 43], [36, 36], [36, 26],
-];
-
-const ASIA_RUSSIA = [
-  [45, 30], [55, 38], [60, 30], [70, 31], [75, 40], [77, 105], [73, 140],
-  [66, 170], [60, 163], [52, 141], [43, 132], [50, 90], [50, 50], [45, 30],
-];
-
-const INDIA = [
-  [25, 68], [34, 74], [28, 88], [22, 89], [16, 82], [8, 77], [13, 74], [21, 70], [25, 68],
-];
-
-const CHINA_EAST_ASIA = [
-  [20, 100], [22, 114], [30, 122], [40, 124], [43, 131], [45, 120], [45, 90], [30, 80], [20, 100],
-];
-
-const SE_ASIA = [
-  [22, 98], [21, 108], [10, 107], [1, 104], [14, 98], [22, 98],
-];
-
-const JAPAN = [
-  [31, 130], [36, 136], [41, 141], [45, 142], [43, 145], [35, 140], [31, 130],
-];
-
-const NORTH_AMERICA = [
-  [70, -165], [72, -130], [70, -95], [60, -64], [47, -53], [44, -66],
-  [41, -71], [30, -81], [25, -80], [29, -89], [26, -97], [19, -96],
-  [15, -93], [8, -78], [14, -87], [20, -105], [30, -114], [34, -120],
-  [48, -125], [58, -137], [60, -150], [65, -168], [70, -165],
-];
-
-const SOUTH_AMERICA = [
-  [12, -72], [10, -62], [5, -52], [-3, -40], [-8, -35], [-23, -42],
-  [-35, -55], [-55, -67], [-53, -75], [-40, -74], [-18, -71], [-4, -81],
-  [5, -77], [12, -72],
-];
-
-const AUSTRALIA = [
-  [-11, 131], [-11, 142], [-23, 151], [-33, 152], [-38, 147], [-35, 117],
-  [-22, 114], [-15, 125], [-11, 131],
-];
-
-const ALL_LAND = [
-  AFRICA, MADAGASCAR, IBERIA, EUROPE_CORE, SCANDINAVIA, BRITISH_ISLES,
-  ARABIA, ANATOLIA, ASIA_RUSSIA, INDIA, CHINA_EAST_ASIA, SE_ASIA, JAPAN,
-  NORTH_AMERICA, SOUTH_AMERICA, AUSTRALIA,
-];
-
-function isLand(lat: number, lon: number): boolean {
-  for (let i = 0; i < ALL_LAND.length; i++) {
-    if (pointInPoly(lat, lon, ALL_LAND[i])) return true;
-  }
-  return false;
 }
 
 export default function InteractiveGlobe() {
@@ -141,18 +39,18 @@ export default function InteractiveGlobe() {
 
     // High-resolution sphere generation with fine continent details
     const points: GlobePoint[] = [];
-    const numLat = 116; // 116 fine latitude rings
+    const numLat = 124; // 124 fine latitude rings for realistic geographic features
 
     for (let i = 0; i < numLat; i++) {
       const phi = (i / numLat) * Math.PI; // 0 to PI
       const lat = 90 - (i / numLat) * 180;
       // Density scaled by latitude circumference
-      const count = Math.max(8, Math.floor(230 * Math.sin(phi)));
+      const count = Math.max(8, Math.floor(250 * Math.sin(phi)));
 
       for (let j = 0; j < count; j++) {
         const theta = (j / count) * 2 * Math.PI; // 0 to 2PI
         const lon = -180 + (j / count) * 360;
-        const land = isLand(lat, lon);
+        const land = isLandCoordinate(lat, lon);
 
         if (land) {
           // Precise continental dot (smaller, dense, glowing)
@@ -160,7 +58,7 @@ export default function InteractiveGlobe() {
             x: Math.sin(phi) * Math.cos(theta),
             y: Math.cos(phi),
             z: Math.sin(phi) * Math.sin(theta),
-            size: 0.95,
+            size: 0.9,
             isLand: true,
           });
         } else if (i % 4 === 0 && j % 4 === 0) {
@@ -169,7 +67,7 @@ export default function InteractiveGlobe() {
             x: Math.sin(phi) * Math.cos(theta),
             y: Math.cos(phi),
             z: Math.sin(phi) * Math.sin(theta),
-            size: 0.5,
+            size: 0.45,
             isLand: false,
           });
         }
