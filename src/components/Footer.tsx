@@ -1,0 +1,9 @@
+import Link from "next/link";
+import { Brand } from "@/components/Brand";
+import { Icon } from "@/components/Icon";
+
+const footerLinks = [{ href: "/", label: "Dashboard" }, { href: "/about", label: "About" }, { href: "/services", label: "Services" }, { href: "/pricing", label: "Pricing" }, { href: "/blog", label: "Research" }, { href: "/contact", label: "Contact" }];
+
+export function Footer() {
+  return <footer className="border-t border-emerald-950/70 bg-[#050c08]"><div className="shell grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr] md:py-16"><div><Brand /><p className="mt-4 max-w-xs text-sm leading-7 text-zinc-500">The intelligence layer for teams that need to understand what the public web is saying, changing, and exposing.</p><div className="mt-5 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-emerald-400"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />All systems operational</div></div><div><p className="eyebrow mb-4">Workspace</p><div className="grid grid-cols-2 gap-y-3">{footerLinks.map((link) => <Link key={link.href} href={link.href} className="text-sm text-zinc-500 transition hover:text-emerald-300">{link.label}</Link>)}</div></div><div><p className="eyebrow mb-4">Intelligence desk</p><a href="mailto:hello@webintel.dev" className="flex items-center gap-2 text-sm text-zinc-400 transition hover:text-emerald-300"><Icon name="mail" width={16} height={16} />hello@webintel.dev</a><p className="mt-3 max-w-[190px] text-sm leading-6 text-zinc-600">Built for product, security, and operations teams.</p></div></div><div className="shell flex flex-col gap-3 border-t border-emerald-950/60 py-5 text-[11px] text-zinc-600 sm:flex-row sm:items-center sm:justify-between"><span>© 2026 WebIntel Systems, Inc.</span><span className="font-mono uppercase tracking-[0.12em]">Public signals. Structured clearly.</span></div></footer>;
+}

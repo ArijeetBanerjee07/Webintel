@@ -1,150 +1,29 @@
 import Link from "next/link";
+import { HomeInteractive } from "@/components/HomeInteractive";
+import { Icon } from "@/components/Icon";
+import { SectionHeading } from "@/components/SectionHeading";
 
-export default function Home() {
-  return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
-      {/* Header */}
-      <header className="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/20">
-              W
-            </div>
-            <span className="font-semibold text-lg tracking-tight">Webintel</span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
-              CI Ready
-            </span>
-          </div>
-          <div className="flex items-center gap-4 text-sm">
-            <Link
-              href="/scanner"
-              className="px-3 py-1.5 rounded-lg bg-emerald-500 text-black text-xs font-semibold hover:bg-emerald-400 transition shadow-sm"
-            >
-              Launch Scanner &rarr;
-            </Link>
-            <Link
-              href="/help"
-              className="text-slate-400 hover:text-white text-xs font-medium transition"
-            >
-              Docs &amp; Help
-            </Link>
-          </div>
-        </div>
-      </header>
+const capabilities = [
+  { icon: "radar" as const, number: "01", title: "Change Intelligence", body: "See what shifted across a domain, why it matters, and who needs to know before the signal becomes a surprise." },
+  { icon: "shield" as const, number: "02", title: "Risk & Compliance", body: "Turn security headers, policy pages, and exposed surfaces into a living control layer your teams can act on." },
+  { icon: "activity" as const, number: "03", title: "Reliability & Performance", body: "Trace public performance gaps and release fingerprints back to the systems and moments that caused them." }
+];
 
-      {/* Hero Section */}
-      <main className="max-w-6xl mx-auto px-6 py-16 flex-1 flex flex-col justify-center">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-medium mb-6">
-            <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
-            Team Development &amp; Git Workflow Architecture
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6">
-            Engineered for Resilient Team Collaboration
-          </h1>
-          <p className="text-lg text-slate-400 leading-relaxed">
-            Webintel enforces protected branch integrity, automated continuous integration,
-            strict PR verification gates, and zero-downtime release pipelines.
-          </p>
-        </div>
+const testimonials = [
+  { quote: "Webintel turned a weekly competitor sweep into a signal we can act on before standup.", name: "Mina Patel", role: "Director of Product Ops", company: "Northstar Cloud", metric: "8 hrs → 12 min" },
+  { quote: "The first scan found three policy gaps our routine vendor review had missed. That paid for the quarter.", name: "Jonas Reed", role: "VP, Security Engineering", company: "Cinder Labs", metric: "3 critical gaps" },
+  { quote: "It is the rare intelligence tool that gives engineering a clear next step, not another dashboard to babysit.", name: "Camille Brooks", role: "Platform Lead", company: "Cohort Systems", metric: "42% faster triage" }
+];
 
-        {/* Branch Flow Diagram */}
-        <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 mb-12 shadow-2xl backdrop-blur">
-          <h2 className="text-xl font-semibold mb-6 text-white flex items-center gap-2">
-            <span>Branching &amp; Release Flow</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
-            {/* Step 1: Feature */}
-            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-6 relative group hover:border-indigo-500/50 transition">
-              <div className="text-xs font-mono text-indigo-400 mb-2">STEP 01 • ACTIVE CODING</div>
-              <h3 className="text-lg font-bold text-white mb-2">feature/*</h3>
-              <p className="text-sm text-slate-400 mb-4">
-                Branch created off staging. Dedicated to single feature or task:
-              </p>
-              <div className="bg-slate-900 rounded p-2.5 font-mono text-xs text-indigo-300 border border-slate-800">
-                git checkout -b feature/auth-system
-              </div>
-            </div>
-
-            {/* Step 2: Staging */}
-            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-6 relative group hover:border-amber-500/50 transition">
-              <div className="text-xs font-mono text-amber-400 mb-2">STEP 02 • INTEGRATION</div>
-              <h3 className="text-lg font-bold text-white mb-2">staging</h3>
-              <p className="text-sm text-slate-400 mb-4">
-                Pull request target. Automated CI checks run, code review &amp; team sign-off required:
-              </p>
-              <div className="bg-slate-900 rounded p-2.5 font-mono text-xs text-amber-300 border border-slate-800">
-                PR: feature/* ➔ staging
-              </div>
-            </div>
-
-            {/* Step 3: Main */}
-            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-6 relative group hover:border-emerald-500/50 transition">
-              <div className="text-xs font-mono text-emerald-400 mb-2">STEP 03 • PRODUCTION</div>
-              <h3 className="text-lg font-bold text-white mb-2">main (Untouchable)</h3>
-              <p className="text-sm text-slate-400 mb-4">
-                Protected branch. Zero direct pushes. Only promoted via approved PR from staging:
-              </p>
-              <div className="bg-slate-900 rounded p-2.5 font-mono text-xs text-emerald-300 border border-slate-800">
-                PR: staging ➔ main
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* PR Automated CI Gates */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 flex flex-col justify-between">
-            <div>
-              <div className="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center font-mono font-bold mb-4">
-                TS
-              </div>
-              <h4 className="text-base font-semibold text-white mb-1">TypeScript Typecheck</h4>
-              <p className="text-sm text-slate-400 mb-4">
-                Strict type safety verified on every PR commit using the TypeScript compiler without emitting JS.
-              </p>
-            </div>
-            <code className="text-xs bg-slate-950 p-2 rounded text-slate-300 border border-slate-800 font-mono">
-              npm run typecheck
-            </code>
-          </div>
-
-          <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 flex flex-col justify-between">
-            <div>
-              <div className="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center font-mono font-bold mb-4">
-                ES
-              </div>
-              <h4 className="text-base font-semibold text-white mb-1">ESLint Analysis</h4>
-              <p className="text-sm text-slate-400 mb-4">
-                Code quality, architectural conventions, and static code styling rules automatically enforced.
-              </p>
-            </div>
-            <code className="text-xs bg-slate-950 p-2 rounded text-slate-300 border border-slate-800 font-mono">
-              npm run lint
-            </code>
-          </div>
-
-          <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 flex flex-col justify-between">
-            <div>
-              <div className="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-mono font-bold mb-4">
-                NB
-              </div>
-              <h4 className="text-base font-semibold text-white mb-1">Production Build</h4>
-              <p className="text-sm text-slate-400 mb-4">
-                Full production Next.js build verification ensuring zero runtime bundle or prerender errors.
-              </p>
-            </div>
-            <code className="text-xs bg-slate-950 p-2 rounded text-slate-300 border border-slate-800 font-mono">
-              npm run build
-            </code>
-          </div>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t border-slate-800 bg-slate-900/30 py-6 text-center text-xs text-slate-500">
-        Webintel • Team Workflow &amp; Protected CI Pipeline Setup
-      </footer>
-    </div>
-  );
+export default function HomePage() {
+  return <>
+    <HomeInteractive />
+    <section className="border-y border-emerald-950/60 bg-[#050c08]/70"><div className="shell grid grid-cols-2 gap-6 py-5 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-600 sm:grid-cols-4 lg:grid-cols-6"><span>northstar</span><span>cinder / labs</span><span>cohort</span><span>arcfield</span><span>meridian</span><span>quietly moving</span></div></section>
+    <section className="shell py-24 sm:py-32"><SectionHeading eyebrow="One public surface. Three clear lenses." title="From noisy web signals to decisions with a timestamp." body="Webintel gives every team a shared language for what a site is, how it changed, and where its next operational risk is hiding." /><div className="mt-12 grid gap-4 lg:grid-cols-3">{capabilities.map((item) => <Link href="/services" key={item.title} className="panel panel-hover group relative overflow-hidden p-6 sm:p-7"><div className="flex items-start justify-between"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-400/10 text-emerald-300"><Icon name={item.icon} width={20} height={20} /></span><span className="font-mono text-xs text-emerald-500/60">{item.number}</span></div><h3 className="mt-12 text-xl font-medium text-white">{item.title}</h3><p className="muted-copy mt-3">{item.body}</p><span className="mt-7 inline-flex items-center gap-2 text-xs font-semibold text-emerald-300">View module <Icon name="arrow-up-right" width={14} height={14} /></span><div className="absolute -bottom-12 -right-8 h-32 w-32 rounded-full bg-emerald-400/10 blur-2xl transition group-hover:bg-emerald-400/20" /></Link>)}</div></section>
+    <section className="border-y border-emerald-950/60 bg-[#050c08]/70"><div className="shell grid gap-12 py-24 lg:grid-cols-[0.7fr_1.3fr] lg:items-center sm:py-28"><SectionHeading eyebrow="Why teams keep it open" title="The first screen you check when the internet changes." body="A calm operating layer for the public signals that usually arrive scattered across tabs, tickets, and one-off scripts." /><div className="grid gap-3 sm:grid-cols-3"><MiniStat value="12.4k" label="Signals indexed / month" /><MiniStat value="99.98%" label="Scan availability" /><MiniStat value="4.2×" label="Faster audit cycles" /></div></div></section>
+    <section className="shell py-24 sm:py-32"><div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end"><SectionHeading eyebrow="Field notes" title="Built for the moment before the meeting." body="Real teams use Webintel to arrive with context, not just a link." /><Link href="/contact" className="button-secondary self-start sm:self-end">Talk to the team <Icon name="arrow-up-right" width={15} height={15} /></Link></div><div className="mt-12 grid gap-4 lg:grid-cols-3">{testimonials.map((testimonial) => <article key={testimonial.name} className="panel p-6 sm:p-7"><div className="flex items-center justify-between"><span className="font-mono text-[10px] uppercase tracking-[0.16em] text-emerald-400">Customer signal</span><span className="rounded-full border border-emerald-800/70 bg-emerald-950/30 px-2.5 py-1 font-mono text-[10px] text-emerald-300">{testimonial.metric}</span></div><blockquote className="mt-10 text-lg leading-8 text-zinc-200">“{testimonial.quote}”</blockquote><div className="mt-9 border-t border-emerald-950/80 pt-4"><p className="text-sm font-medium text-white">{testimonial.name}</p><p className="mt-1 text-xs text-zinc-500">{testimonial.role} · {testimonial.company}</p></div></article>)}</div></section>
+    <section className="shell pb-24 sm:pb-32"><div className="relative overflow-hidden rounded-2xl border border-emerald-800/60 bg-gradient-to-br from-emerald-950/60 to-[#08140D] p-8 sm:p-12"><div className="absolute right-0 top-0 h-56 w-56 rounded-full bg-emerald-400/10 blur-3xl" /><div className="relative max-w-2xl"><p className="eyebrow">Start with the public surface</p><h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Know what changed before someone asks.</h2><p className="muted-copy mt-4">Bring a domain. We&apos;ll bring the structured readout.</p><Link href="/contact" className="button-primary mt-7">Request a guided scan <Icon name="arrow-up-right" width={16} height={16} /></Link></div></div></section>
+  </>;
 }
+
+function MiniStat({ value, label }: { value: string; label: string }) { return <div className="border-l border-emerald-800/70 pl-4"><p className="text-2xl font-semibold tracking-tight text-emerald-300">{value}</p><p className="mt-2 max-w-[120px] text-xs leading-5 text-zinc-500">{label}</p></div>; }
