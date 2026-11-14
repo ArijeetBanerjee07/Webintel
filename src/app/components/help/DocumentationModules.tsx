@@ -1,3 +1,6 @@
+
+"use client";
+
 import React, { useState } from "react";
 import {
   Rocket,
@@ -7,7 +10,6 @@ import {
   Search,
   Bell,
   ArrowRight,
-  
 } from "lucide-react";
 import { DocArticle, DocModule } from "./helpData";
 
@@ -30,6 +32,7 @@ export function DocumentationModules({
   searchQuery,
 }: DocumentationModulesProps) {
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
+
   const [activeGuide, setActiveGuide] = useState<{
     module: DocModule;
     selectedArticle?: DocArticle;
@@ -46,6 +49,7 @@ export function DocumentationModules({
           <span className="text-[11px] font-semibold uppercase tracking-widest text-[#10B981]">
             Architecture &amp; Manuals
           </span>
+
           <h2
             id="modules-heading"
             className="mt-1 text-2xl font-bold text-white"
@@ -53,6 +57,7 @@ export function DocumentationModules({
             Core Documentation Modules
           </h2>
         </div>
+
         <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#10B981]">
           <span className="h-1.5 w-1.5 rounded-full bg-[#10B981]" />
           {modules.length} Essential Modules
@@ -62,7 +67,10 @@ export function DocumentationModules({
       {modules.length > 0 ? (
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {modules.map((mod) => {
-            const isArticlesOpen = expandedCardId === mod.id;
+            const isArticlesOpen =
+              expandedCardId === mod.id ||
+              (searchQuery.trim() !== "" &&
+                mod.relatedArticles.length > 0);
 
             return (
               <div
@@ -74,9 +82,11 @@ export function DocumentationModules({
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#10B981]/30 bg-[#10B981]/10 text-[#10B981]">
                     {MODULE_ICONS[mod.icon]}
                   </div>
+
                   <h3 className="mt-4 text-base font-semibold text-zinc-100 group-hover:text-[#10B981]">
                     {mod.title}
                   </h3>
+
                   <p className="mt-2 text-xs leading-relaxed text-zinc-400 sm:text-sm">
                     {mod.description}
                   </p>
@@ -92,9 +102,12 @@ export function DocumentationModules({
                     <span>
                       Related Articles ({mod.relatedArticles.length})
                     </span>
+
                     <span
                       className={`transition-transform duration-200 ${
-                        isArticlesOpen ? "rotate-90 text-[#10B981]" : ""
+                        isArticlesOpen
+                          ? "rotate-90 text-[#10B981]"
+                          : ""
                       }`}
                     >
                       &rsaquo;
@@ -116,6 +129,7 @@ export function DocumentationModules({
                             className="flex w-full items-start justify-between gap-2 rounded px-1.5 py-1 text-left text-[11px] text-zinc-300 transition hover:bg-[#10B981]/10 hover:text-[#10B981]"
                           >
                             <span>{article.title}</span>
+
                             <span className="shrink-0 text-[10px] text-zinc-500">
                               {article.readTime}
                             </span>
@@ -132,7 +146,8 @@ export function DocumentationModules({
                   >
                     <span>View Guide</span>
 
-<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />                  </button>
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </button>
                 </div>
               </div>
             );
@@ -161,6 +176,7 @@ export function DocumentationModules({
                 <span className="text-[11px] font-semibold uppercase tracking-widest text-[#10B981]">
                   {activeGuide.module.title}
                 </span>
+
                 <h3
                   id="guide-modal-title"
                   className="mt-1 text-lg font-bold text-white"
@@ -170,6 +186,7 @@ export function DocumentationModules({
                     : `${activeGuide.module.title} — Step-by-Step Guide`}
                 </h3>
               </div>
+
               <button
                 type="button"
                 onClick={() => setActiveGuide(null)}
@@ -186,6 +203,7 @@ export function DocumentationModules({
                   <span className="inline-block rounded-full border border-[#10B981]/30 bg-[#10B981]/10 px-2.5 py-0.5 text-[11px] text-[#10B981]">
                     {activeGuide.selectedArticle.readTime}
                   </span>
+
                   <p className="text-sm leading-relaxed text-zinc-300">
                     {activeGuide.selectedArticle.summary}
                   </p>
@@ -202,12 +220,14 @@ export function DocumentationModules({
                     ? "Quick Implementation Steps"
                     : "Workflow Instructions"}
                 </p>
+
                 <ol className="mt-3 space-y-2.5 text-xs leading-relaxed text-zinc-300 sm:text-sm">
                   {activeGuide.module.guideSteps.map((step, i) => (
                     <li key={i} className="flex gap-2.5">
                       <span className="font-bold text-[#10B981]">
                         0{i + 1}.
                       </span>
+
                       <span>{step}</span>
                     </li>
                   ))}
@@ -231,6 +251,7 @@ export function DocumentationModules({
                   WebIntel Documentation
                 </span>
               )}
+
               <button
                 type="button"
                 onClick={() => setActiveGuide(null)}
@@ -243,5 +264,5 @@ export function DocumentationModules({
         </div>
       )}
     </section>
-  )
+  );
 }
