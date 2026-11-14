@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
@@ -14,10 +16,18 @@ export default function Home() {
             </span>
           </div>
           <div className="flex items-center gap-4 text-sm">
-            <span className="text-slate-400">Environment:</span>
-            <span className="px-2.5 py-1 rounded-md bg-slate-800 text-slate-200 border border-slate-700 font-mono text-xs">
-              staging / production
-            </span>
+            <Link
+              href="/scanner"
+              className="px-3 py-1.5 rounded-lg bg-emerald-500 text-black text-xs font-semibold hover:bg-emerald-400 transition shadow-sm"
+            >
+              Launch Scanner &rarr;
+            </Link>
+            <Link
+              href="/help"
+              className="text-slate-400 hover:text-white text-xs font-medium transition"
+            >
+              Docs &amp; Help
+            </Link>
           </div>
         </div>
       </header>
