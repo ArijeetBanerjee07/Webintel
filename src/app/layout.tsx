@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Webintel",
-  description: "Webintel - Team Intelligence Platform",
+  description: "Webintel - Website & Competitor Intelligence Platform",
 };
 
 export default function RootLayout({
