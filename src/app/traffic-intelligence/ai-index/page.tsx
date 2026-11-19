@@ -15,7 +15,6 @@ const AI_CRAWLERS = [
 export default function AiIndexReportPage() {
   return (
     <div className="space-y-6">
-      {/* Header Banner */}
       <div className={`${CARD_STYLE} flex flex-wrap items-center justify-between gap-4`}>
         <div>
           <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
@@ -35,7 +34,6 @@ export default function AiIndexReportPage() {
         </Link>
       </div>
 
-      {/* KPI Row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className={CARD_STYLE}>
           <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">AI Citation Share of Voice</span>
@@ -54,7 +52,6 @@ export default function AiIndexReportPage() {
         </div>
       </div>
 
-      {/* AI Engine Breakdown Table */}
       <div className="rounded-xl bg-[#0b1813] border border-emerald-900/50 overflow-hidden">
         <div className="px-6 py-4 border-b border-emerald-950/80 flex items-center justify-between">
           <h2 className="text-base font-semibold text-white">LLM & Answer Engine Citation Breakdown</h2>
@@ -87,5 +84,5 @@ export default function AiIndexReportPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

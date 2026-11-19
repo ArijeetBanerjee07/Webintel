@@ -111,7 +111,6 @@ export default function AnchorMapPage() {
         </Link>
       </div>
 
-      {/* KPI Row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className={CARD_STYLE}>
           <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Tracked Inbound URLs</span>
@@ -130,7 +129,6 @@ export default function AnchorMapPage() {
         </div>
       </div>
 
-      {/* Filterable Anchor Table */}
       <div className="rounded-xl bg-[#0b1813] border border-emerald-900/50 overflow-hidden">
         <div className="px-6 py-4 border-b border-emerald-950/80 flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2 text-xs">
