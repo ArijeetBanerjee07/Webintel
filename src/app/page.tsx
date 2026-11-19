@@ -1,150 +1,196 @@
 import Link from "next/link";
+import { HomeInteractive } from "@/components/HomeInteractive";
+import { TechStackMarquee } from "@/components/TechStackMarquee";
+import { ServicesSection } from "@/components/ServicesSection";
+import { PricingSection } from "@/components/PricingSection";
+import { Icon } from "@/components/Icon";
+import { SectionHeading } from "@/components/SectionHeading";
 
-export default function Home() {
+const capabilities = [
+  {
+    icon: "radar" as const,
+    number: "01",
+    title: "Change Intelligence",
+    body: "Detect what shifted across a public domain, why it matters, and who needs to be alerted before the delta impacts customers.",
+  },
+  {
+    icon: "shield" as const,
+    number: "02",
+    title: "Risk & Compliance",
+    body: "Convert security headers, TLS lifecycles, and policy pages into an automated control layer that engineering can act on directly.",
+  },
+  {
+    icon: "activity" as const,
+    number: "03",
+    title: "Reliability & Edge Latency",
+    body: "Trace public performance dips, payload bloat, and release fingerprints back to the exact code changes and systems responsible.",
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      "WebIntel turned our weekly competitor audit into an automated telemetry feed we review before daily standup.",
+    name: "Mina Patel",
+    role: "Director of Product Ops",
+    company: "Northstar Cloud",
+    metric: "8 hrs → 12 min",
+  },
+  {
+    quote:
+      "The first automated crawl flagged two critical CSP regressions that had slipped through our staging deployment pipeline.",
+    name: "Jonas Reed",
+    role: "VP, Security Engineering",
+    company: "Cinder Labs",
+    metric: "2 critical gaps",
+  },
+  {
+    quote:
+      "Unlike noisy monitoring dashboards, WebIntel delivers a clear, actionable diff with ownership context.",
+    name: "Camille Brooks",
+    role: "Platform Lead",
+    company: "Cohort Systems",
+    metric: "42% faster triage",
+  },
+];
+
+export default function HomePage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
-      {/* Header */}
-      <header className="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/20">
-              W
-            </div>
-            <span className="font-semibold text-lg tracking-tight">Webintel</span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
-              CI Ready
-            </span>
-          </div>
-          <div className="flex items-center gap-4 text-sm">
+    <>
+      {/* Interactive Hero with Real Terminal Inspector */}
+      <HomeInteractive />
+
+      {/* Technology Fingerprinting Animated Marquee */}
+      <TechStackMarquee />
+
+      {/* Center-Aligned Services & Core Capabilities */}
+      <ServicesSection />
+
+      {/* Three Operational Lenses Detail */}
+      <section className="shell py-24 sm:py-32 border-t border-white/[0.08]">
+        <SectionHeading
+          eyebrow="Continuous Surface Lenses"
+          title="From raw network telemetry to timestamped decisions."
+          body="WebIntel provides a common operational baseline for what a site runs, how its perimeter changes, and where hidden technical debt accumulates."
+        />
+        <div className="mt-12 grid gap-4 lg:grid-cols-3">
+          {capabilities.map((item) => (
             <Link
-              href="/scanner"
-              className="px-3 py-1.5 rounded-lg bg-emerald-500 text-black text-xs font-semibold hover:bg-emerald-400 transition shadow-sm"
+              href="/services"
+              key={item.title}
+              className="panel panel-hover group relative overflow-hidden p-6 sm:p-7"
             >
-              Launch Scanner &rarr;
+              <div className="flex items-start justify-between">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.03] text-emerald-400 transition group-hover:bg-emerald-500/10">
+                  <Icon name={item.icon} width={20} height={20} />
+                </span>
+                <span className="font-mono text-xs font-semibold text-zinc-500">
+                  {item.number}
+                </span>
+              </div>
+              <h3 className="mt-8 text-lg font-semibold text-white">{item.title}</h3>
+              <p className="muted-copy mt-2.5 text-xs">{item.body}</p>
+              <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
+                <span>View architecture</span>
+                <Icon name="arrow-up-right" width={13} height={13} />
+              </span>
             </Link>
-            <Link
-              href="/help"
-              className="text-slate-400 hover:text-white text-xs font-medium transition"
-            >
-              Docs &amp; Help
-            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Centered Predictable Pricing Section */}
+      <PricingSection />
+
+      {/* Operational Stats Bar */}
+      <section className="border-y border-white/[0.08] bg-[#050806]">
+        <div className="shell grid gap-12 py-20 lg:grid-cols-[0.7fr_1.3fr] lg:items-center sm:py-24">
+          <SectionHeading
+            eyebrow="Continuous Reliability"
+            title="Built for the team meeting before the incident."
+            body="A focused operating layer for public web signals that normally require dozens of ad-hoc terminal scripts and manual checks."
+          />
+          <div className="grid gap-4 sm:grid-cols-3">
+            <MiniStat value="14.2k+" label="Domains indexed every month" />
+            <MiniStat value="99.98%" label="Telemetry availability" />
+            <MiniStat value="4.2×" label="Faster vulnerability triage" />
           </div>
         </div>
-      </header>
+      </section>
 
-      {/* Hero Section */}
-      <main className="max-w-6xl mx-auto px-6 py-16 flex-1 flex flex-col justify-center">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-medium mb-6">
-            <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
-            Team Development &amp; Git Workflow Architecture
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6">
-            Engineered for Resilient Team Collaboration
-          </h1>
-          <p className="text-lg text-slate-400 leading-relaxed">
-            Webintel enforces protected branch integrity, automated continuous integration,
-            strict PR verification gates, and zero-downtime release pipelines.
-          </p>
+      {/* Customer Signals & Field Testimonials */}
+      <section className="shell py-24 sm:py-32">
+        <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+          <SectionHeading
+            eyebrow="Engineering Field Notes"
+            title="Trusted by engineering and security teams."
+            body="Real teams use WebIntel to arrive with validated context, not just an unvetted link."
+          />
+          <Link href="/contact" className="button-secondary self-start sm:self-end text-xs">
+            <span>Speak with an engineer</span>
+            <Icon name="arrow-up-right" width={13} height={13} />
+          </Link>
         </div>
-
-        {/* Branch Flow Diagram */}
-        <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 mb-12 shadow-2xl backdrop-blur">
-          <h2 className="text-xl font-semibold mb-6 text-white flex items-center gap-2">
-            <span>Branching &amp; Release Flow</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
-            {/* Step 1: Feature */}
-            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-6 relative group hover:border-indigo-500/50 transition">
-              <div className="text-xs font-mono text-indigo-400 mb-2">STEP 01 • ACTIVE CODING</div>
-              <h3 className="text-lg font-bold text-white mb-2">feature/*</h3>
-              <p className="text-sm text-slate-400 mb-4">
-                Branch created off staging. Dedicated to single feature or task:
-              </p>
-              <div className="bg-slate-900 rounded p-2.5 font-mono text-xs text-indigo-300 border border-slate-800">
-                git checkout -b feature/auth-system
+        <div className="mt-12 grid gap-4 lg:grid-cols-3">
+          {testimonials.map((testimonial) => (
+            <article key={testimonial.name} className="panel p-6 sm:p-7 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-emerald-400">
+                    Customer Signal
+                  </span>
+                  <span className="rounded bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] text-zinc-300">
+                    {testimonial.metric}
+                  </span>
+                </div>
+                <blockquote className="mt-6 text-sm leading-relaxed text-zinc-200">
+                  “{testimonial.quote}”
+                </blockquote>
               </div>
-            </div>
-
-            {/* Step 2: Staging */}
-            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-6 relative group hover:border-amber-500/50 transition">
-              <div className="text-xs font-mono text-amber-400 mb-2">STEP 02 • INTEGRATION</div>
-              <h3 className="text-lg font-bold text-white mb-2">staging</h3>
-              <p className="text-sm text-slate-400 mb-4">
-                Pull request target. Automated CI checks run, code review &amp; team sign-off required:
-              </p>
-              <div className="bg-slate-900 rounded p-2.5 font-mono text-xs text-amber-300 border border-slate-800">
-                PR: feature/* ➔ staging
+              <div className="mt-6 border-t border-white/[0.06] pt-4">
+                <p className="text-xs font-semibold text-white">{testimonial.name}</p>
+                <p className="mt-0.5 text-[11px] text-zinc-500">
+                  {testimonial.role} · {testimonial.company}
+                </p>
               </div>
-            </div>
-
-            {/* Step 3: Main */}
-            <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-6 relative group hover:border-emerald-500/50 transition">
-              <div className="text-xs font-mono text-emerald-400 mb-2">STEP 03 • PRODUCTION</div>
-              <h3 className="text-lg font-bold text-white mb-2">main (Untouchable)</h3>
-              <p className="text-sm text-slate-400 mb-4">
-                Protected branch. Zero direct pushes. Only promoted via approved PR from staging:
-              </p>
-              <div className="bg-slate-900 rounded p-2.5 font-mono text-xs text-emerald-300 border border-slate-800">
-                PR: staging ➔ main
-              </div>
-            </div>
-          </div>
+            </article>
+          ))}
         </div>
+      </section>
 
-        {/* PR Automated CI Gates */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 flex flex-col justify-between">
-            <div>
-              <div className="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center font-mono font-bold mb-4">
-                TS
-              </div>
-              <h4 className="text-base font-semibold text-white mb-1">TypeScript Typecheck</h4>
-              <p className="text-sm text-slate-400 mb-4">
-                Strict type safety verified on every PR commit using the TypeScript compiler without emitting JS.
-              </p>
+      {/* Final Action Callout Banner */}
+      <section className="shell pb-24 sm:pb-32">
+        <div className="card-terminal p-8 sm:p-12 border-emerald-500/30 bg-gradient-to-br from-[#09140e] to-[#050906]">
+          <div className="max-w-2xl">
+            <p className="eyebrow">Start with your public perimeter</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Know what changed before someone asks in standup.
+            </h2>
+            <p className="muted-copy mt-3 text-zinc-300">
+              Enter any public domain. Receive an automated technical readout covering frameworks,
+              security headers, and edge performance in seconds.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/contact" className="button-primary text-xs">
+                <span>Get Started Free</span>
+                <Icon name="arrow-up-right" width={13} height={13} />
+              </Link>
+              <Link href="/services" className="button-secondary text-xs">
+                <span>Explore Capabilities</span>
+              </Link>
             </div>
-            <code className="text-xs bg-slate-950 p-2 rounded text-slate-300 border border-slate-800 font-mono">
-              npm run typecheck
-            </code>
-          </div>
-
-          <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 flex flex-col justify-between">
-            <div>
-              <div className="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center font-mono font-bold mb-4">
-                ES
-              </div>
-              <h4 className="text-base font-semibold text-white mb-1">ESLint Analysis</h4>
-              <p className="text-sm text-slate-400 mb-4">
-                Code quality, architectural conventions, and static code styling rules automatically enforced.
-              </p>
-            </div>
-            <code className="text-xs bg-slate-950 p-2 rounded text-slate-300 border border-slate-800 font-mono">
-              npm run lint
-            </code>
-          </div>
-
-          <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 flex flex-col justify-between">
-            <div>
-              <div className="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-mono font-bold mb-4">
-                NB
-              </div>
-              <h4 className="text-base font-semibold text-white mb-1">Production Build</h4>
-              <p className="text-sm text-slate-400 mb-4">
-                Full production Next.js build verification ensuring zero runtime bundle or prerender errors.
-              </p>
-            </div>
-            <code className="text-xs bg-slate-950 p-2 rounded text-slate-300 border border-slate-800 font-mono">
-              npm run build
-            </code>
           </div>
         </div>
-      </main>
+      </section>
+    </>
+  );
+}
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800 bg-slate-900/30 py-6 text-center text-xs text-slate-500">
-        Webintel • Team Workflow &amp; Protected CI Pipeline Setup
-      </footer>
+function MiniStat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="border-l border-white/[0.1] pl-4">
+      <p className="text-2xl font-bold tracking-tight text-white">{value}</p>
+      <p className="mt-1 text-xs text-zinc-400">{label}</p>
     </div>
   );
 }
