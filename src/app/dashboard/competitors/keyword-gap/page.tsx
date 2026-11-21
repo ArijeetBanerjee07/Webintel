@@ -159,6 +159,10 @@ const getDifficultyStyle = (difficulty: number) => {
           </div>
 
           <div className="overflow-x-auto">
+             <p className="mb-3 px-1 text-xs text-slate-500 sm:hidden">
+          Swipe horizontally to view all competitors →
+        </p>
+
             <table className="w-full text-sm text-left">
 
               <thead className="bg-[#082012] text-slate-400">

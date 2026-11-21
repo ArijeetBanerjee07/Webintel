@@ -13,6 +13,7 @@ import SharedKeywordDiscovery from "./SharedKeywordDiscovery";
 import SERPOverlapDiscovery from "./SERPOverlapDiscovery";
 import CategoryDiscovery from "./CategoryDiscovery";
 import AddDomainDiscovery from "./AddDomainDiscovery";
+
 const discoveryMethods = [
   {
     id: "shared-keywords",
@@ -46,7 +47,7 @@ export default function DiscoveryMethods() {
   );
 
   return (
-    <section className="rounded-2xl border border-emerald-500/20 bg-[#05170d] p-5">
+    <section className="min-w-0 rounded-2xl border border-emerald-500/20 bg-[#05170d] p-5">
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-white">
           Discover Competitors
@@ -57,8 +58,39 @@ export default function DiscoveryMethods() {
         </p>
       </div>
 
-      {/* Discovery method tabs */}
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      {/* Mobile animated pill navigation */}
+      <div className="mb-5 flex justify-center md:hidden">
+        <div className="flex items-center justify-between gap-2 rounded-full border border-emerald-500/20 bg-[#020603] px-2 py-2 shadow-lg">
+          {discoveryMethods.map((method) => {
+            const Icon = method.icon;
+            const isActive = activeMethod === method.id;
+
+            return (
+              <button
+                key={method.id}
+                type="button"
+                onClick={() => setActiveMethod(method.id)}
+                aria-label={method.label}
+                aria-pressed={isActive}
+                title={method.label}
+                className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
+                  isActive
+                    ? "border border-emerald-500/40 bg-emerald-500/15 text-emerald-400"
+                    : "border border-transparent text-slate-400 hover:bg-emerald-500/10 hover:text-emerald-300"
+                }`}
+              >
+                <Icon
+                  size={19}
+                  strokeWidth={2.3}
+                />
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Desktop discovery tabs - original design */}
+      <div className="hidden grid-cols-2 gap-3 md:grid lg:grid-cols-4">
         {discoveryMethods.map((method) => {
           const Icon = method.icon;
           const isActive = activeMethod === method.id;
@@ -66,6 +98,7 @@ export default function DiscoveryMethods() {
           return (
             <button
               key={method.id}
+              type="button"
               onClick={() => setActiveMethod(method.id)}
               className={`rounded-xl border p-4 text-left transition-all ${
                 isActive
@@ -93,29 +126,21 @@ export default function DiscoveryMethods() {
       </div>
 
       {/* Selected method content */}
-      <div className="mt-6 rounded-xl border border-emerald-500/10 bg-[#020603] p-5">
+      <div className="mt-4 min-w-0 rounded-xl border border-emerald-500/10 bg-[#020603] p-3 sm:mt-6 sm:p-5">
         {activeMethod === "shared-keywords" && (
-          <div>
-              <SharedKeywordDiscovery />
-          </div>
+          <SharedKeywordDiscovery />
         )}
 
         {activeMethod === "serp-overlap" && (
-          <div>
           <SERPOverlapDiscovery />
-          </div>
         )}
 
         {activeMethod === "category" && (
-          <div>
-            <CategoryDiscovery />
-          </div>
+          <CategoryDiscovery />
         )}
 
         {activeMethod === "add-domain" && (
-          <div>
-            <AddDomainDiscovery />
-          </div>
+          <AddDomainDiscovery />
         )}
       </div>
     </section>

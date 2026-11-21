@@ -28,7 +28,7 @@ export default function OrganicCompetitorsChart({
           Top 10 competitors ranked by estimated organic traffic.
         </p>
       </div>
-
+    
       <div className="space-y-5">
         {competitors.map((competitor, index) => (
           <div key={competitor.id} className="space-y-2">

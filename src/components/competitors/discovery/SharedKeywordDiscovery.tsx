@@ -85,6 +85,9 @@ export default function SharedKeywordDiscovery() {
 
       {/* Keyword table */}
       <div className="overflow-x-auto rounded-xl border border-emerald-500/20">
+        <p className="mb-2 px-4 pt-3 text-xs text-slate-500 sm:hidden">
+    Swipe horizontally to view all columns →
+  </p>
         <table className="w-full min-w-[950px] text-left text-sm">
           <thead className="bg-[#082012] text-slate-300">
             <tr>

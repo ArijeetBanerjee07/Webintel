@@ -12,7 +12,7 @@ export default function CompetitorSummaryTable({
   data,
 }: CompetitorSummaryTableProps) {
   return (
-    <div className="rounded-2xl border border-emerald-500/20 bg-[#05170d] p-5">
+    <div className="min-w-0 rounded-2xl border border-emerald-500/20 bg-[#05170d] p-4 sm:p-5">
       <div className="mb-5">
         <h2 className="text-lg font-semibold text-white">
           Competitor Comparison
@@ -23,8 +23,13 @@ export default function CompetitorSummaryTable({
         </p>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[750px] text-left">
+     <div className="w-full min-w-0 overflow-x-auto overscroll-x-contain">
+        {/* Mobile scroll instruction */}
+  <p className="mb-2 text-xs text-slate-500 sm:hidden">
+    Swipe horizontally to view all columns →
+  </p>
+
+  <table className="w-full min-w-[850px] text-left">
           <thead>
             <tr className="border-b border-emerald-500/20 text-xs uppercase tracking-wider text-slate-400">
               <th className="px-4 py-3">Domain</th>

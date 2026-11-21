@@ -36,6 +36,12 @@ export default function MissingTopicClusters({
 
       {/* Table */}
       <div className="overflow-x-auto">
+        {/* Mobile scroll hint */}
+      <p className="px-2 pt-3 text-xs text-slate-500 sm:hidden">
+        Swipe horizontally to view all columns →
+      </p>
+
+
         <table className="w-full min-w-[900px] text-left text-sm">
 
           <thead className="bg-[#082012] text-xs uppercase text-slate-400">

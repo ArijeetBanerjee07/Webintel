@@ -27,6 +27,9 @@ export default function CompetitorMetricsTable({
         </p>
       ) : (
         <div className="overflow-x-auto">
+          <p className="mb-2 px-4 pt-3 text-xs text-slate-500 sm:hidden">
+    Swipe horizontally to view all columns →
+  </p>
           <table className="w-full min-w-[850px] text-left">
             <thead>
               <tr className="border-b border-emerald-500/20 text-xs uppercase tracking-wider text-slate-400">

@@ -33,6 +33,11 @@ export default function UnansweredQuestions({
         </p>
       ) : (
         <div className="overflow-x-auto">
+             {/* Mobile scroll hint */}
+      <p className="px-2 pt-3 text-xs text-slate-500 sm:hidden">
+        Swipe horizontally to view all columns →
+      </p>
+
           <table className="w-full min-w-[850px] text-left text-sm">
             <thead>
               <tr className="border-b border-emerald-500/20 text-slate-400">

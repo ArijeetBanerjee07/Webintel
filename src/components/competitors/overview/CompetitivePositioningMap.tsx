@@ -34,7 +34,7 @@ const competitorWebsites = data.filter(
 );
 
   return (
-    <div className="rounded-2xl border border-emerald-500/20 bg-[#05170d] p-5">
+    <div className="min-w-0 w-full rounded-2xl border border-emerald-500/20 bg-[#05170d] p-4 sm:p-5">
       <div className="mb-5">
         <h2 className="text-lg font-semibold text-white">
           Competitive Positioning Map
@@ -45,9 +45,16 @@ const competitorWebsites = data.filter(
         </p>
       </div>
 
-      <div className="h-[350px] w-full">
+      <div className="h-[320px] w-full min-w-0 sm:h-[350px]">
         <ResponsiveContainer width="100%" height="100%">
-          <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+          <ScatterChart
+  margin={{
+    top: 15,
+    right: 10,
+    bottom: 25,
+    left: 5,
+  }}
+>
             <CartesianGrid strokeDasharray="3 3" stroke="#16452c" />
 
             <XAxis
@@ -61,6 +68,7 @@ const competitorWebsites = data.filter(
                 position: "insideBottom",
                 offset: -10,
                 fill: "#94a3b8",
+                fontSize:10
               }}
             />
 
@@ -75,6 +83,7 @@ const competitorWebsites = data.filter(
                 angle: -90,
                 position: "insideLeft",
                 fill: "#94a3b8",
+                 fontSize:10
               }}
             />
 
@@ -89,7 +98,7 @@ const competitorWebsites = data.filter(
   iconType="circle"
   wrapperStyle={{
     paddingTop: "15px",
-    fontSize: "12px",
+    fontSize: "11px",
     color: "#94a3b8",
   }}
 />

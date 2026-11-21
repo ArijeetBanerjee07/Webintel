@@ -23,6 +23,11 @@ export default function CompetitorPagesTable({
   return (
     <div className="overflow-hidden rounded-2xl border border-emerald-500/20 bg-[#05170d]">
       <div className="overflow-x-auto">
+           {/* Mobile scroll hint */}
+      <p className="px-2 pt-3 text-xs text-slate-500 sm:hidden">
+        Swipe horizontally to view all columns →
+      </p>
+
         <table className="w-full min-w-[1100px] table-fixed text-left text-sm">
           <colgroup>
             <col className="w-[34%]" />
