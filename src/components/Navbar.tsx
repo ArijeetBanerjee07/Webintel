@@ -27,12 +27,13 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#040806]/80 backdrop-blur-xl transition-all">
       <div className="shell flex h-16 items-center justify-between">
-        {/* Brand Logo */}
         <div className="flex items-center gap-10">
           <Brand />
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
+          <nav
+            className="hidden items-center gap-1 md:flex"
+            aria-label="Main navigation"
+          >
             {navLinks.map((link) => (
               <Link
                 key={link.label}
@@ -45,7 +46,6 @@ export function Navbar() {
           </nav>
         </div>
 
-        {/* Right CTA */}
         <div className="hidden items-center gap-3 sm:flex">
           <button
             type="button"
@@ -65,7 +65,6 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Hamburger Toggle */}
         <div className="flex items-center gap-2 md:hidden">
           <button
             type="button"
@@ -74,21 +73,26 @@ export function Navbar() {
           >
             Get Started
           </button>
+
           <button
             type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => setMobileMenuOpen((current) => !current)}
             className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.03] text-zinc-300 transition hover:text-white"
             aria-label="Toggle navigation menu"
+            aria-expanded={mobileMenuOpen}
           >
-            <Icon name={mobileMenuOpen ? "x" : "menu"} width={18} height={18} />
+            <Icon
+              name={mobileMenuOpen ? "x" : "menu"}
+              width={18}
+              height={18}
+            />
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="border-b border-white/[0.08] bg-[#060c08] px-5 py-4 md:hidden">
-          <nav className="flex flex-col gap-1.5">
+          <nav className="flex flex-col gap-1.5" aria-label="Mobile navigation">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
@@ -99,7 +103,8 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <div className="mt-3 grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.06]">
+
+            <div className="mt-3 grid grid-cols-2 gap-2 border-t border-white/[0.06] pt-2">
               <button
                 type="button"
                 onClick={() => {
@@ -110,6 +115,7 @@ export function Navbar() {
               >
                 Sign In
               </button>
+
               <button
                 type="button"
                 onClick={() => {

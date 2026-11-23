@@ -5,6 +5,26 @@
     { "path": "/services", "title": "Services — Webintel" },
     { "path": "/pricing", "title": "Pricing — Webintel" },
     { "path": "/blog", "title": "Research — Webintel" },
-    { "path": "/contact", "title": "Contact — Webintel" }
+    { "path": "/contact", "title": "Contact — Webintel" },
+    { "path": "/help", "title": "Help — Webintel" },
+    { "path": "/help/contact", "title": "Help Contact — Webintel" },
+    { "path": "/help/workflows/:step", "title": "Help Workflow — Webintel" },
+    { "path": "/login", "title": "Login — Webintel" },
+    { "path": "/signup", "title": "Sign Up — Webintel" },
+    { "path": "/scanner", "title": "Scanner — Webintel" },
+    { "path": "/audit", "title": "Website Audit — Webintel" },
+    { "path": "/broken-links", "title": "Broken Links — Webintel" },
+    { "path": "/metadata-schema", "title": "Metadata & Schema — Webintel" },
+    { "path": "/dashboard", "title": "Dashboard — Webintel" },
+    { "path": "/dashboard/website-intelligence/audit", "title": "Website Audit — Webintel" },
+    { "path": "/dashboard/website-intelligence/metadata-schema", "title": "Metadata & Schema — Webintel" },
+    { "path": "/dashboard/website-intelligence/broken-links", "title": "Broken Links — Webintel" },
+    { "path": "/dashboard/seo/keywords", "title": "Organic Keywords — Webintel" },
+    { "path": "/dashboard/seo/rankings", "title": "Keyword Rankings — Webintel" },
+    { "path": "/dashboard/seo/serp", "title": "SERP Overview — Webintel" },
+    { "path": "/dashboard/seo/backlinks", "title": "Backlink Profile — Webintel" },
+    { "path": "/dashboard/seo/domains", "title": "Referring Domains — Webintel" },
+    { "path": "/dashboard/seo/top-pages", "title": "Top Pages — Webintel" },
+    { "path": "/dashboard/seo/technical", "title": "Technical SEO — Webintel" }
   ]
 }
