@@ -30,7 +30,7 @@ export const sidebarNavigation: SidebarSection[] = [
       { label: "Page Explorer", href: "/dashboard/website-intelligence/pages", icon: "layers" },
       { label: "Performance", href: "/dashboard/website-intelligence/performance", icon: "zap" },
       { label: "Mobile & UX", href: "/dashboard/website-intelligence/mobile-ux", icon: "smartphone" },
-      { label: "Metadata & Schema", href: "/dashboard/website-intelligence/schema", icon: "code" },
+      { label: "Metadata & Schema", href: "/dashboard/website-intelligence/metadata-schema", icon: "code" },
       { label: "Broken Links", href: "/dashboard/website-intelligence/broken-links", icon: "link-2-off" },
     ],
   },
